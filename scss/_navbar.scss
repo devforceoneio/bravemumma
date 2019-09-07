@@ -1,11 +1,11 @@
 #mainNav {
   min-height: 56px;
-  background-color: $white;
+  background-color: $pink;
   .navbar-toggler {
     font-size: 80%;
     padding: 0.75rem;
-    color: $primary;
-    border: 1px solid $primary;
+    color: $active;
+    border: 1px solid $active;
     &:focus {
       outline: none;
     }
@@ -13,7 +13,10 @@
   .navbar-brand {
     color: $black;
     font-weight: 700;
-    padding: .9rem 0;
+    padding: 0;
+  }
+  .navbar-brand img {
+    height: 50px;
   }
   .navbar-nav {
     .nav-item {
@@ -33,42 +36,41 @@
     padding-top: 0;
     padding-bottom: 0;
     border-bottom: none;
-    background-color: transparent;
+    background-color: $pink;
     transition: background-color 0.3s ease-in-out;
     .navbar-brand {
-      padding: .5rem 0;
-      color: fade-out($white, .5);
+      padding: 0.5rem 0;
+      color: fade-out($white, 0.5);
     }
     .nav-link {
       transition: none;
       padding: 2rem 1.5rem;
-      color: fade-out($white, .5);
+      color: fade-out($white, 0.5);
       &:hover {
-        color: fade-out($white, .25);
+        color: fade-out($white, 0.25);
       }
       &:active {
         color: white;
       }
     }
     &.navbar-shrink {
-      background-color: $white;
       .navbar-brand {
         color: $black;
       }
       .nav-link {
-        color: $black;
+        color: fade-out($white, 0.5);
         padding: 1.5rem 1.5rem 1.25rem;
         border-bottom: 0.25rem solid transparent;
         &:hover {
-          color: $primary;
+          color: $active;
         }
         &:active {
-          color: darken($primary, 15%);
+          color: darken($active, 15%);
         }
         &.active {
-          color: $primary;
+          color: $active;
           outline: none;
-          border-bottom: 0.25rem solid $primary;
+          border-bottom: 0.25rem solid $active;
         }
       }
     }

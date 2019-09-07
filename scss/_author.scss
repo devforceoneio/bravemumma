@@ -1,11 +1,17 @@
-.contact-section {
-  padding: 1rem 0 0;
+.author-section {
+  padding: 5rem 0 5rem 0;
+  background: linear-gradient(
+    to bottom,
+    $black 0%,
+    #{fade-out($black, 0.1)} 75%,
+    #{fade-out($black, 0.2)} 100%
+  );
   .card {
     border: 0;
     border-bottom: 0.25rem solid $primary;
     h4 {
       font-size: 0.8rem;
-      font-family: 'Varela Round';
+      font-family: "Varela Round";
       text-transform: uppercase;
       letter-spacing: 0.15rem;
     }

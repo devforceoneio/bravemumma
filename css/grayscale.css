@@ -6,14 +6,14 @@
 
 #mainNav {
   min-height: 56px;
-  background-color: #fff;
+  background-color: #ee6762;
 }
 
 #mainNav .navbar-toggler {
   font-size: 80%;
   padding: 0.75rem;
-  color: #64a19d;
-  border: 1px solid #64a19d;
+  color: #fff;
+  border: 1px solid #fff;
 }
 
 #mainNav .navbar-toggler:focus {
@@ -23,7 +23,11 @@
 #mainNav .navbar-brand {
   color: #161616;
   font-weight: 700;
-  padding: .9rem 0;
+  padding: 0;
+}
+
+#mainNav .navbar-brand img {
+  height: 50px;
 }
 
 #mainNav .navbar-nav .nav-item:hover {
@@ -42,12 +46,12 @@
     padding-top: 0;
     padding-bottom: 0;
     border-bottom: none;
-    background-color: transparent;
+    background-color: #ee6762;
     -webkit-transition: background-color 0.3s ease-in-out;
     transition: background-color 0.3s ease-in-out;
   }
   #mainNav .navbar-brand {
-    padding: .5rem 0;
+    padding: 0.5rem 0;
     color: rgba(255, 255, 255, 0.5);
   }
   #mainNav .nav-link {
@@ -62,27 +66,24 @@
   #mainNav .nav-link:active {
     color: white;
   }
-  #mainNav.navbar-shrink {
-    background-color: #fff;
-  }
   #mainNav.navbar-shrink .navbar-brand {
     color: #161616;
   }
   #mainNav.navbar-shrink .nav-link {
-    color: #161616;
+    color: rgba(255, 255, 255, 0.5);
     padding: 1.5rem 1.5rem 1.25rem;
     border-bottom: 0.25rem solid transparent;
   }
   #mainNav.navbar-shrink .nav-link:hover {
-    color: #64a19d;
+    color: #fff;
   }
   #mainNav.navbar-shrink .nav-link:active {
-    color: #467370;
+    color: #d9d9d9;
   }
   #mainNav.navbar-shrink .nav-link.active {
-    color: #64a19d;
+    color: #fff;
     outline: none;
-    border-bottom: 0.25rem solid #64a19d;
+    border-bottom: 0.25rem solid #fff;
   }
 }
 
@@ -92,8 +93,7 @@
   height: auto;
   min-height: 35rem;
   padding: 15rem 0;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(22, 22, 22, 0.3)), color-stop(75%, rgba(22, 22, 22, 0.7)), to(#161616)), url("../img/bg-masthead.jpg");
-  background: linear-gradient(to bottom, rgba(22, 22, 22, 0.3) 0%, rgba(22, 22, 22, 0.7) 75%, #161616 100%), url("../img/bg-masthead.jpg");
+  background-color: #ee6762;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -101,13 +101,11 @@
 }
 
 .masthead h1 {
-  font-family: 'Varela Round';
+  font-family: "Varela Round";
   font-size: 2.5rem;
   line-height: 2.5rem;
   letter-spacing: 0.8rem;
-  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
+  color: #fff;
 }
 
 .masthead h2 {
@@ -150,24 +148,24 @@
 }
 
 .btn-primary {
-  background-color: #64a19d;
+  background-color: #ee6762;
 }
 
 .btn-primary:hover {
-  background-color: #4f837f;
+  background-color: #e93a34;
 }
 
 .btn-primary:focus {
-  background-color: #4f837f;
+  background-color: #e93a34;
   color: white;
 }
 
 .btn-primary:active {
-  background-color: #467370 !important;
+  background-color: #e7241d !important;
 }
 
 .about-section {
-  padding-top: 10rem;
+  padding: 5rem 0;
   background: -webkit-gradient(linear, left top, left bottom, from(#161616), color-stop(75%, rgba(22, 22, 22, 0.9)), to(rgba(22, 22, 22, 0.8)));
   background: linear-gradient(to bottom, #161616 0%, rgba(22, 22, 22, 0.9) 75%, rgba(22, 22, 22, 0.8) 100%);
 }
@@ -176,39 +174,89 @@
   margin-bottom: 5rem;
 }
 
-.projects-section {
-  padding: 10rem 0;
+.books-section {
+  padding: 5rem 0;
 }
 
-.projects-section .featured-text {
+.books-section .featured-img {
+  max-height: 500px;
+}
+
+.books-section .featured-text {
   padding: 2rem;
 }
 
 @media (min-width: 992px) {
-  .projects-section .featured-text {
+  .books-section .featured-text {
     padding: 0 0 0 2rem;
-    border-left: 0.5rem solid #64a19d;
+    border-left: 0.5rem solid #ee6762;
   }
 }
 
-.projects-section .project-text {
+.books-section .book-text {
   padding: 3rem;
   font-size: 90%;
 }
 
 @media (min-width: 992px) {
-  .projects-section .project-text {
+  .books-section .book-text {
     padding: 5rem;
   }
-  .projects-section .project-text hr {
-    border-color: #64a19d;
-    border-width: .25rem;
+  .books-section .book-text hr {
+    border-color: #ee6762;
+    border-width: 0.25rem;
     width: 30%;
   }
 }
 
+.author-section {
+  padding: 5rem 0 5rem 0;
+  background: -webkit-gradient(linear, left top, left bottom, from(#161616), color-stop(75%, rgba(22, 22, 22, 0.9)), to(rgba(22, 22, 22, 0.8)));
+  background: linear-gradient(to bottom, #161616 0%, rgba(22, 22, 22, 0.9) 75%, rgba(22, 22, 22, 0.8) 100%);
+}
+
+.author-section .card {
+  border: 0;
+  border-bottom: 0.25rem solid #ee6762;
+}
+
+.author-section .card h4 {
+  font-size: 0.8rem;
+  font-family: "Varela Round";
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+}
+
+.author-section .card hr {
+  border-color: #ee6762;
+  border-width: 0.25rem;
+  width: 3rem;
+}
+
+.author-section .social {
+  margin-top: 5rem;
+}
+
+.author-section .social a {
+  text-align: center;
+  height: 3rem;
+  width: 3rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 100%;
+  line-height: 3rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.author-section .social a:hover {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.author-section .social a:active {
+  color: #fff;
+}
+
 .signup-section {
-  padding: 10rem 0;
+  padding: 5rem 0;
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(22, 22, 22, 0.1)), color-stop(75%, rgba(22, 22, 22, 0.5)), to(#161616)), url("../img/bg-signup.jpg");
   background: linear-gradient(to bottom, rgba(22, 22, 22, 0.1) 0%, rgba(22, 22, 22, 0.5) 75%, #161616 100%), url("../img/bg-signup.jpg");
   background-position: center;
@@ -230,12 +278,12 @@
 }
 
 .contact-section {
-  padding: 5rem 0 0;
+  padding: 1rem 0 0;
 }
 
 .contact-section .card {
   border: 0;
-  border-bottom: 0.25rem solid #64a19d;
+  border-bottom: 0.25rem solid #ee6762;
 }
 
 .contact-section .card h4 {
@@ -246,7 +294,7 @@
 }
 
 .contact-section .card hr {
-  border-color: #64a19d;
+  border-color: #ee6762;
   border-width: 0.25rem;
   width: 3rem;
 }
@@ -274,17 +322,17 @@
 }
 
 body {
-  font-family: 'Nunito';
+  font-family: "Nunito";
   letter-spacing: 0.0625em;
 }
 
 a {
-  color: #64a19d;
+  color: #ee6762;
 }
 
 a:focus, a:hover {
   text-decoration: none;
-  color: #3c6360;
+  color: #d31e17;
 }
 
 .bg-black {
@@ -292,11 +340,11 @@ a:focus, a:hover {
 }
 
 .bg-primary {
-  background-color: #64a19d !important;
+  background-color: #ee6762 !important;
 }
 
 .text-primary {
-  color: #64a19d !important;
+  color: #ee6762 !important;
 }
 
 footer {

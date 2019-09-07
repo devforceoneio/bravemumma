@@ -1,15 +1,16 @@
-@import 'variables.scss';
-@import 'mixins.scss';
-@import 'navbar.scss';
-@import 'masthead.scss';
-@import 'buttons.scss';
-@import 'about.scss';
-@import 'projects.scss';
-@import 'signup.scss';
-@import 'contact.scss';
+@import "variables.scss";
+@import "mixins.scss";
+@import "navbar.scss";
+@import "masthead.scss";
+@import "buttons.scss";
+@import "about.scss";
+@import "books.scss";
+@import "author.scss";
+@import "signup.scss";
+@import "contact.scss";
 
 body {
-  font-family: 'Nunito';
+  font-family: "Nunito";
   letter-spacing: 0.0625em;
 }
 
