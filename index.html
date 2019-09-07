@@ -105,7 +105,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#signup">Contact</a>
+              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
             </li>
           </ul>
         </div>
@@ -243,15 +243,18 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="contact-section bg-primary">
+    <section id="contact" class="contact-section bg-primary">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">Contact Us</h2>
           </div>
         </div>
+
         <div class="row">
-          <div class="col-lg-12">
+          <div class="col-lg-12 text-center">
+            <i class="far fa-envelope fa-2x mb-2 text-white"></i>
+            <h2 class="text-white mb-5">Send us a message!</h2>
             <form id="contactForm" name="sentMessage" novalidate="novalidate">
               <div class="row">
                 <div class="col-md-6">
@@ -332,7 +335,7 @@
                 class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0"
                 id="recipient-name"
                 name="_replyto"
-                placeholder="Enter email address..."
+                placeholder="Your Email*"
               />
               <button type="submit" class="btn btn-primary mx-auto">
                 Subscribe
@@ -374,7 +377,7 @@
           <div class="col-md-4">
             <ul class="list-inline quicklinks">
               <li class="list-inline-item">
-                <a href="#">Privacy Policy</a>
+                <a class="privacy" href="#">Privacy Policy</a>
               </li>
             </ul>
           </div>

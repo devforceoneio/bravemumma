@@ -290,21 +290,26 @@
   margin-bottom: 1em;
 }
 
-.contact-section .form-group {
+.contact-section .form-group,
+.contact-section .form-inline {
   margin-bottom: 25px;
 }
 
 .contact-section .form-group input,
-.contact-section .form-group textarea {
-  padding: 20px;
+.contact-section .form-group textarea,
+.contact-section .form-inline input,
+.contact-section .form-inline textarea {
+  padding: 15px;
 }
 
-.contact-section .form-group input.form-control {
+.contact-section .form-group input.form-control,
+.contact-section .form-inline input.form-control {
   height: auto;
 }
 
-.contact-section .form-group textarea.form-control {
-  height: 248px;
+.contact-section .form-group textarea.form-control,
+.contact-section .form-inline textarea.form-control {
+  height: 217px;
 }
 
 .contact-section .form-control:focus {
@@ -341,18 +346,6 @@
   margin-top: 3em;
 }
 
-.contact-section .form-inline input {
-  -webkit-box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
-  box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
-  padding: 1.25rem 2rem;
-  height: auto;
-  font-family: "Varela Round";
-  font-size: 80%;
-  text-transform: uppercase;
-  letter-spacing: 0.15rem;
-  border: 0;
-}
-
 .footer {
   padding: 25px 0;
   text-align: center;
@@ -367,20 +360,15 @@
   color: #fff;
 }
 
-.footer ul.quicklinks {
-  font-size: 90%;
-  line-height: 40px;
-  margin-bottom: 0;
-  text-transform: none;
-  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  color: #fff !important;
-}
-
-ul.social-buttons {
+.footer ul {
   margin-bottom: 0;
 }
 
-ul.social-buttons li a {
+.footer ul.social-buttons {
+  margin-bottom: 0;
+}
+
+.footer ul.social-buttons li a {
   font-size: 20px;
   line-height: 50px;
   display: block;
@@ -394,8 +382,16 @@ ul.social-buttons li a {
   background-color: #fff;
 }
 
-ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons li a:hover {
+.footer ul.social-buttons li a:active, .footer ul.social-buttons li a:focus, .footer ul.social-buttons li a:hover {
   background-color: #212529;
+}
+
+.footer ul.quicklinks .privacy {
+  font-size: 90%;
+  line-height: 40px;
+  text-transform: none;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  color: #fff;
 }
 
 body {

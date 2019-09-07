@@ -9,17 +9,18 @@
     color: $white;
     margin-bottom: 1em;
   }
-  .form-group {
+  .form-group,
+  .form-inline {
     margin-bottom: 25px;
     input,
     textarea {
-      padding: 20px;
+      padding: 15px;
     }
     input.form-control {
       height: auto;
     }
     textarea.form-control {
-      height: 248px;
+      height: 217px;
     }
   }
   .form-control:focus {
@@ -48,17 +49,5 @@
   }
   .subscribe {
     margin-top: 3em;
-  }
-  .form-inline {
-    input {
-      box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
-      padding: 1.25rem 2rem;
-      height: auto;
-      font-family: "Varela Round";
-      font-size: 80%;
-      text-transform: uppercase;
-      letter-spacing: 0.15rem;
-      border: 0;
-    }
   }
 }
