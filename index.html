@@ -292,6 +292,13 @@
                 assessment and care. I wrote it for myself, for my daughter and
                 for all women, everywhere.
               </p>
+              <button
+                type="submit"
+                class="btn btn-primary mx-auto my-3"
+                onclick="window.open('https://startsomegood.com')"
+              >
+                Pre-Order Now
+              </button>
             </div>
           </div>
         </div>
@@ -389,7 +396,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Contact Us</h2>
+            <h2 class="section-heading">Contact Us</h2>
           </div>
         </div>
 
@@ -397,13 +404,20 @@
           <div class="col-lg-12 text-center">
             <i class="far fa-envelope fa-2x mb-2 text-white"></i>
             <h2 class="text-white mb-5">Send us a message!</h2>
-            <form id="contactForm" name="sentMessage" novalidate="novalidate">
+            <form
+              id="contactForm"
+              name="sentMessage"
+              action="https://formspree.io/bravemumma@gmail.com"
+              method="POST"
+              novalidate="novalidate"
+            >
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <input
                       class="form-control"
                       id="name"
+                      name="name"
                       type="text"
                       placeholder="Your Name *"
                       required="required"
@@ -415,6 +429,7 @@
                     <input
                       class="form-control"
                       id="email"
+                      name="_replyto"
                       type="email"
                       placeholder="Your Email *"
                       required="required"
@@ -426,6 +441,7 @@
                     <input
                       class="form-control"
                       id="phone"
+                      name="phone"
                       type="tel"
                       placeholder="Your Phone *"
                       required="required"
@@ -439,6 +455,7 @@
                     <textarea
                       class="form-control"
                       id="message"
+                      name="message"
                       placeholder="Your Message *"
                       required="required"
                       data-validation-required-message="Please enter a message."
@@ -464,9 +481,8 @@
 
         <div class="row subscribe">
           <div class="col-md-10 col-lg-8 mx-auto text-center">
-            <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+            <i class="fas fa-bullhorn fa-2x mb-2 text-white"></i>
             <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
-
             <form
               class="form-inline d-flex"
               action="https://formspree.io/bravemumma@gmail.com"
@@ -527,6 +543,35 @@
       </div>
     </footer>
 
+    <!-- Popup window -->
+    <div id="bookPopup" class="overlay">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading mx-3">The Day My Vagina Broke</h2>
+            <img class="m-4 popup-img" src="img/vaginabrokebook.png" alt="" />
+            <h4>
+              The Day My Vagina Broke book is being launched soon!<br />
+              To be one of the first to receive a copy, click below and choose
+              your reward.
+            </h4>
+            <button
+              type="submit"
+              class="btn btn-primary mx-auto my-3"
+              onclick="window.open('https://startsomegood.com')"
+            >
+              Pre-Order Now
+            </button>
+          </div>
+        </div>
+        <!-- <div class="row">
+          <div class="col-lg-12">
+            
+          </div>
+        </div> -->
+      </div>
+    </div>
+
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -535,6 +580,7 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for this template -->
+    <script src="js/jquery.firstVisitPopup.min.js"></script>
     <script src="js/grayscale.min.js"></script>
   </body>
 </html>

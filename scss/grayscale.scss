@@ -36,3 +36,70 @@ a {
 .text-primary {
   color: $primary !important;
 }
+
+.noscroll-class {
+  overflow: hidden;
+}
+
+#fvpp-blackout {
+  display: none;
+  z-index: 1050;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #000;
+  opacity: 0.5;
+}
+
+#bookPopup {
+  display: none;
+  z-index: 1500;
+  position: fixed;
+  border-radius: 5px;
+  width: 90%;
+  left: 5%;
+  top: 15%;
+  padding: 10px 1%;
+  background: $white;
+}
+@media (min-width: 768px) {
+  #bookPopup {
+    width: 70%;
+    left: 15%;
+    top: 20%;
+    padding: 20px 2%;
+    background: $white;
+  }
+}
+
+@media (min-width: 992px) {
+  #bookPopup {
+    width: 50%;
+    left: 25%;
+    top: 20%;
+    padding: 20px 2%;
+  }
+}
+
+@media (min-width: 1200px) {
+  #bookPopup {
+    width: 50%;
+    left: 25%;
+    top: 20%;
+    padding: 20px 2%;
+  }
+}
+
+.popup-img {
+  height: 300px;
+}
+
+#fvpp-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
