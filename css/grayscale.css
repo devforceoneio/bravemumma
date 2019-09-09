@@ -184,7 +184,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 40px;
+  left: 50px;
   width: 2px;
   margin-left: -1.5px;
   content: "";
@@ -210,7 +210,7 @@
   position: relative;
   float: right;
   width: 100%;
-  padding: 0 20px 0 100px;
+  padding: 0 0 0 120px;
   text-align: left;
 }
 
@@ -232,8 +232,8 @@
   position: absolute;
   z-index: 100;
   left: 0;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   margin-left: 0;
   text-align: center;
   color: white;
@@ -243,14 +243,14 @@
 }
 
 .timeline > li .timeline-image h4 {
-  font-size: 10px;
-  line-height: 14px;
-  margin-top: 12px;
+  font-size: 12px;
+  line-height: 16px;
+  margin-top: 19px;
 }
 
 .timeline > li.timeline-inverted > .timeline-panel {
   float: right;
-  padding: 0 20px 0 100px;
+  padding: 0 0 0 120px;
   text-align: left;
 }
 
@@ -297,7 +297,7 @@
   .timeline > li .timeline-panel {
     float: left;
     width: 41%;
-    padding: 0 20px 20px 30px;
+    padding: 0 20px 20px 0;
     text-align: right;
   }
   .timeline > li .timeline-image {
@@ -313,7 +313,7 @@
   }
   .timeline > li.timeline-inverted > .timeline-panel {
     float: right;
-    padding: 0 30px 20px 20px;
+    padding: 0 0 20px 20px;
     text-align: left;
   }
 }
@@ -323,7 +323,7 @@
     min-height: 150px;
   }
   .timeline > li .timeline-panel {
-    padding: 0 20px 20px;
+    padding: 0 20px 20px 0;
   }
   .timeline > li .timeline-image {
     width: 150px;
@@ -336,7 +336,7 @@
     margin-top: 30px;
   }
   .timeline > li.timeline-inverted > .timeline-panel {
-    padding: 0 20px 20px;
+    padding: 0 0 20px 20px;
   }
 }
 
@@ -345,7 +345,7 @@
     min-height: 170px;
   }
   .timeline > li .timeline-panel {
-    padding: 0 20px 20px 100px;
+    padding: 0 20px 20px 0;
   }
   .timeline > li .timeline-image {
     width: 170px;
@@ -356,7 +356,7 @@
     margin-top: 40px;
   }
   .timeline > li.timeline-inverted > .timeline-panel {
-    padding: 0 100px 20px 20px;
+    padding: 0 0 20px 20px;
   }
 }
 

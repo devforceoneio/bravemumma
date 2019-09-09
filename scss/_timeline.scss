@@ -7,7 +7,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 40px;
+    left: 50px;
     width: 2px;
     margin-left: -1.5px;
     content: "";
@@ -29,7 +29,7 @@
       position: relative;
       float: right;
       width: 100%;
-      padding: 0 20px 0 100px;
+      padding: 0 0 0 120px;
       text-align: left;
       &:before {
         right: auto;
@@ -48,8 +48,8 @@
       position: absolute;
       z-index: 100;
       left: 0;
-      width: 80px;
-      height: 80px;
+      width: 100px;
+      height: 100px;
       margin-left: 0;
       text-align: center;
       color: white;
@@ -57,14 +57,14 @@
       border-radius: 100%;
       background-color: $primary;
       h4 {
-        font-size: 10px;
-        line-height: 14px;
-        margin-top: 12px;
+        font-size: 12px;
+        line-height: 16px;
+        margin-top: 19px;
       }
     }
     &.timeline-inverted > .timeline-panel {
       float: right;
-      padding: 0 20px 0 100px;
+      padding: 0 0 0 120px;
       text-align: left;
       &:before {
         right: auto;
@@ -110,7 +110,7 @@
       .timeline-panel {
         float: left;
         width: 41%;
-        padding: 0 20px 20px 30px;
+        padding: 0 20px 20px 0;
         text-align: right;
       }
       .timeline-image {
@@ -126,7 +126,7 @@
       }
       &.timeline-inverted > .timeline-panel {
         float: right;
-        padding: 0 30px 20px 20px;
+        padding: 0 0 20px 20px;
         text-align: left;
       }
     }
@@ -137,7 +137,7 @@
     > li {
       min-height: 150px;
       .timeline-panel {
-        padding: 0 20px 20px;
+        padding: 0 20px 20px 0;
       }
       .timeline-image {
         width: 150px;
@@ -150,7 +150,7 @@
         }
       }
       &.timeline-inverted > .timeline-panel {
-        padding: 0 20px 20px;
+        padding: 0 0 20px 20px;
       }
     }
   }
@@ -160,7 +160,7 @@
     > li {
       min-height: 170px;
       .timeline-panel {
-        padding: 0 20px 20px 100px;
+        padding: 0 20px 20px 0;
       }
       .timeline-image {
         width: 170px;
@@ -171,7 +171,7 @@
         }
       }
       &.timeline-inverted > .timeline-panel {
-        padding: 0 100px 20px 20px;
+        padding: 0 0 20px 20px;
       }
     }
   }
