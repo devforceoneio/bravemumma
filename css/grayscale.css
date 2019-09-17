@@ -409,7 +409,11 @@
 }
 
 .books-section {
-  padding: 5rem 0;
+  padding: 2rem 0;
+}
+
+.books-section .section-heading {
+  margin-bottom: 2rem;
 }
 
 .books-section .featured-img {
@@ -582,6 +586,20 @@
 
 .contact-section .subscribe {
   margin-top: 3em;
+}
+
+.privacy-section {
+  margin-top: 40px;
+  padding: 5rem 0;
+}
+
+.privacy-section h2 {
+  margin: 1.5rem 0 1rem 0;
+}
+
+.privacy-section h3,
+.privacy-section h4 {
+  margin: 1rem 0 0.5rem 0;
 }
 
 .footer {
