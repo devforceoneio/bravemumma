@@ -110,18 +110,36 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+              <a
+                class="nav-link js-scroll-trigger"
+                href="#about"
+                onclick="ga('send', 'event', 'Nav', 'Click', 'About')"
+                >About</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#books">The Book</a>
+              <a
+                class="nav-link js-scroll-trigger"
+                href="#books"
+                onclick="ga('send', 'event', 'Nav', 'Click', 'The Book')"
+                >The Book</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#author"
+              <a
+                class="nav-link js-scroll-trigger"
+                href="#author"
+                onclick="ga('send', 'event', 'Nav', 'Click', 'The Author')"
                 >The Author</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+              <a
+                class="nav-link js-scroll-trigger"
+                href="#contact"
+                onclick="ga('send', 'event', 'Nav', 'Click', 'Contact')"
+                >Contact</a
+              >
             </li>
           </ul>
         </div>
@@ -314,7 +332,7 @@
               <button
                 type="submit"
                 class="btn btn-primary mx-auto my-3"
-                onclick="window.open('https://startsomegood.com/bravemumma')"
+                onclick="window.open('https://startsomegood.com/bravemumma'); ga('send', 'event', 'Button', 'Click', 'TDMVB Pre-order')"
               >
                 Pre-Order Now
               </button>
@@ -497,6 +515,7 @@
                     id="sendMessageButton"
                     class="btn btn-primary btn-xl text-uppercase"
                     type="submit"
+                    onclick="ga('send', 'event', 'Contact Us', 'Submit', 'Send Message')"
                   >
                     Send Message
                   </button>
@@ -522,7 +541,11 @@
                 name="_replyto"
                 placeholder="Your Email*"
               />
-              <button type="submit" class="btn btn-primary mx-auto">
+              <button
+                type="submit"
+                class="btn btn-primary mx-auto"
+                onclick="ga('send', 'event', 'Contact Us', 'Submit', 'Subscribe')"
+              >
                 Subscribe
               </button>
             </form>
@@ -541,18 +564,25 @@
           <div class="col-md-4">
             <ul class="list-inline social-buttons">
               <li class="list-inline-item">
-                <a href="https://www.facebook.com/bravemumma">
+                <a
+                  href="https://www.facebook.com/bravemumma"
+                  onclick="ga('send', 'event', 'Footer', 'Social', 'Facebook')"
+                >
                   <i class="fab fa-facebook-f"></i>
                 </a>
               </li>
               <li class="list-inline-item">
-                <a href="https://www.instagram.com/bravemumma">
+                <a
+                  href="https://www.instagram.com/bravemumma"
+                  onclick="ga('send', 'event', 'Footer', 'Social', 'Instagram')"
+                >
                   <i class="fab fa-instagram"></i>
                 </a>
               </li>
               <li class="list-inline-item">
                 <a
                   href="https://www.linkedin.com/in/stephanie-thompson-809b66188/"
+                  onclick="ga('send', 'event', 'Footer', 'Social', 'LinkedIn')"
                 >
                   <i class="fab fa-linkedin-in"></i>
                 </a>
@@ -562,7 +592,12 @@
           <div class="col-md-4">
             <ul class="list-inline quicklinks">
               <li class="list-inline-item">
-                <a class="privacy" href="/privacy.html">Privacy Policy</a>
+                <a
+                  class="privacy"
+                  href="/privacy.html"
+                  onclick="ga('send', 'event', 'Footer', 'Click', 'Privacy Policy')"
+                  >Privacy Policy</a
+                >
               </li>
             </ul>
           </div>
@@ -577,16 +612,17 @@
           <div class="col-lg-12 text-center">
             <img class="m-4 popup-img" src="img/vaginabrokebook.png" alt="" />
             <h4 class="my-3">
-              Launching soon. Pre-order today!
+              Help get this book published today!
             </h4>
             <p>
-              Receive an advance copy of The Day My Vagina Broke and help us get
-              our message out to the world. Click below to choose your reward.
+              To successfully launch this book, the pre-order target is 250
+              copies. Once we reach this goal, a personal copy of the book will
+              be yours to read.
             </p>
             <button
               type="submit"
               class="btn btn-primary mx-auto my-3"
-              onclick="window.open('https://startsomegood.com/bravemumma')"
+              onclick="window.open('https://startsomegood.com/bravemumma'); ga('send', 'event', 'Button', 'Click', 'Popup Pre-order')"
             >
               Pre-order Now
             </button>
