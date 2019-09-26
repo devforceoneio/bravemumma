@@ -497,6 +497,27 @@
   color: #fff;
 }
 
+.partners-section {
+  padding: 5rem 0 5rem 0;
+  width: 100%;
+  background-color: #ee6762;
+}
+
+.partners-section .vertical-center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.partners-section .logo-img {
+  max-height: 200px;
+}
+
 .signup-section {
   padding: 2rem 0;
   background: url("../img/bg-signup.jpg");
