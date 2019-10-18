@@ -515,7 +515,8 @@
 }
 
 .partners-section .logo-img {
-  max-height: 200px;
+  max-height: 180px;
+  max-width: 360px;
 }
 
 .signup-section {
