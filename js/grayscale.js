@@ -47,8 +47,8 @@
   // Collapse the navbar when page is scrolled
   $(window).scroll(navbarCollapse);
 
-  $("#bookPopup").firstVisitPopup({
-    cookieName: "homepage",
-    showAgainSelector: "#show-message"
-  });
+  // $("#bookPopup").firstVisitPopup({
+  //   cookieName: "homepage",
+  //   showAgainSelector: "#show-message"
+  // });
 })(jQuery); // End of use strict
