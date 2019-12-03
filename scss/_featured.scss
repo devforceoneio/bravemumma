@@ -1,0 +1,15 @@
+.featured-section {
+  padding: 2rem 0;
+  .section-heading {
+    margin-bottom: 2rem;
+  }
+  .logo-img-sm {
+    max-height: 200px;
+    max-width: 300px;
+  }
+  .vertical-center {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}
