@@ -1,12 +1,12 @@
 /*!
  * Start Bootstrap - Grayscale v5.0.8 (https://startbootstrap.com/template-overviews/grayscale)
- * Copyright 2013-2019 Start Bootstrap
+ * Copyright 2013-2021 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-grayscale/blob/master/LICENSE)
  */
 
 #mainNav {
   min-height: 56px;
-  background-color: #ee6762;
+  background-color: #f6988e;
 }
 
 #mainNav .navbar-toggler {
@@ -21,7 +21,7 @@
 }
 
 #mainNav .navbar-brand {
-  color: #161616;
+  color: #231F20;
   font-weight: 700;
   padding: 0;
 }
@@ -46,7 +46,7 @@
     padding-top: 0;
     padding-bottom: 0;
     border-bottom: none;
-    background-color: #ee6762;
+    background-color: #f6988e;
     -webkit-transition: background-color 0.3s ease-in-out;
     transition: background-color 0.3s ease-in-out;
   }
@@ -67,7 +67,7 @@
     color: white;
   }
   #mainNav.navbar-shrink .navbar-brand {
-    color: #161616;
+    color: #231F20;
   }
   #mainNav.navbar-shrink .nav-link {
     color: rgba(255, 255, 255, 0.5);
@@ -93,7 +93,7 @@
   height: auto;
   min-height: 35rem;
   padding: 15rem 0;
-  background-color: #ee6762;
+  background-color: #f6988e;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -166,8 +166,8 @@
 
 .about-section {
   padding: 5rem 0;
-  background: -webkit-gradient(linear, left top, left bottom, from(#161616), color-stop(75%, rgba(22, 22, 22, 0.9)), to(rgba(22, 22, 22, 0.8)));
-  background: linear-gradient(to bottom, #161616 0%, rgba(22, 22, 22, 0.9) 75%, rgba(22, 22, 22, 0.8) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#231F20), color-stop(75%, rgba(35, 31, 32, 0.9)), to(rgba(35, 31, 32, 0.8)));
+  background: linear-gradient(to bottom, #231F20 0%, rgba(35, 31, 32, 0.9) 75%, rgba(35, 31, 32, 0.8) 100%);
 }
 
 .about-section p {
@@ -239,7 +239,7 @@
   color: white;
   border: 7px solid #e9ecef;
   border-radius: 100%;
-  background-color: #ee6762;
+  background-color: #f6988e;
 }
 
 .timeline > li .timeline-image h4 {
@@ -427,7 +427,7 @@
 @media (min-width: 992px) {
   .books-section .featured-text {
     padding: 0 0 0 2rem;
-    border-left: 0.5rem solid #ee6762;
+    border-left: 0.5rem solid #f6988e;
   }
 }
 
@@ -473,8 +473,8 @@
 
 .author-section {
   padding: 5rem 0 5rem 0;
-  background: -webkit-gradient(linear, left top, left bottom, from(#161616), color-stop(75%, rgba(22, 22, 22, 0.9)), to(rgba(22, 22, 22, 0.8)));
-  background: linear-gradient(to bottom, #161616 0%, rgba(22, 22, 22, 0.9) 75%, rgba(22, 22, 22, 0.8) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#231F20), color-stop(75%, rgba(35, 31, 32, 0.9)), to(rgba(35, 31, 32, 0.8)));
+  background: linear-gradient(to bottom, #231F20 0%, rgba(35, 31, 32, 0.9) 75%, rgba(35, 31, 32, 0.8) 100%);
 }
 
 .author-section .profile-img {
@@ -524,7 +524,7 @@
 .partners-section {
   padding: 5rem 0 5rem 0;
   width: 100%;
-  background-color: #ee6762;
+  background-color: #f6988e;
 }
 
 .partners-section .vertical-center {
@@ -651,7 +651,7 @@
 .footer {
   padding: 25px 0;
   text-align: center;
-  background-color: #ee6762;
+  background-color: #f6988e;
 }
 
 .footer span.copyright {
@@ -678,7 +678,7 @@
   height: 50px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  color: #ee6762;
+  color: #f6988e;
   border-radius: 100%;
   outline: none;
   background-color: #fff;
@@ -711,11 +711,15 @@ a:focus, a:hover {
 }
 
 .bg-black {
-  background-color: #161616 !important;
+  background-color: #231F20 !important;
 }
 
 .bg-primary {
   background-color: #ee6762 !important;
+}
+
+.bg-cream {
+  background-color: #fef2ee;
 }
 
 .text-primary {
