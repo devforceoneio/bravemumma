@@ -749,6 +749,11 @@ a:focus, a:hover {
   color: #ee4230;
 }
 
+.section-heading {
+  color: #ff5c5c;
+  text-align: center;
+}
+
 .bg-black {
   background-color: #231f20 !important;
 }
