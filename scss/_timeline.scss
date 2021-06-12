@@ -53,9 +53,9 @@
       margin-left: 0;
       text-align: center;
       color: white;
-      border: 7px solid $gray-200;
+      border: 7px solid $bright-pink;
       border-radius: 100%;
-      background-color: $pink;
+      background-color: $bright-pink;
       h4 {
         font-size: 12px;
         line-height: 16px;
@@ -86,7 +86,7 @@
   .timeline-heading {
     h4 {
       margin-top: 0;
-      color: $white;
+      color: $pink;
       &.subheading {
         text-transform: none;
       }
@@ -196,9 +196,9 @@
 }
 @keyframes shadow-pulse {
   0% {
-    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 0 10px rgba(255, 92, 92, 0.2);
   }
   100% {
-    box-shadow: 0 0 0 30px rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 30px rgba(255, 92, 92, 0);
   }
 }
