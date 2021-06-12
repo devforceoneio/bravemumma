@@ -597,7 +597,7 @@
 
 .contact-section {
   padding: 3rem 0;
-  background: url("../img/bravemumma_portrait_wide.jpg");
+  background: url("../img/bg-signup.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -663,6 +663,12 @@
 
 .contact-section .subscribe {
   margin-top: 3em;
+}
+
+@media (max-width: 767px) {
+  .contact-section {
+    background-image: url("../img/bg-signup_small.jpg");
+  }
 }
 
 .privacy-section {
