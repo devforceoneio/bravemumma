@@ -1,9 +1,9 @@
 .masthead {
   position: relative;
   width: 100%;
-  height: auto;
+  height: 100vh;
   min-height: 35rem;
-  padding: 15rem 0;
+  padding: 88px 0 0 0;
   background-color: $light-pink;
   background-position: center;
   background-repeat: no-repeat;
@@ -37,7 +37,6 @@
   }
   @media (min-width: 992px) {
     height: 100vh;
-    padding: 0;
     h1 {
       font-size: 6.5rem;
       line-height: 6.5rem;
