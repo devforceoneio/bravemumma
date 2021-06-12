@@ -4,11 +4,14 @@
   height: auto;
   min-height: 35rem;
   padding: 15rem 0;
-  background-color: $pink;
+  background-color: $light-pink;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;
+  img {
+    max-height: 500px;
+  }
   h1 {
     font-family: "Varela Round";
     font-size: 1.75rem;

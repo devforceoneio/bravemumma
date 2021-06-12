@@ -4,16 +4,36 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-grayscale/blob/master/LICENSE)
  */
 
+.navbar-light .navbar-nav .nav-link {
+  color: #ff5c5c !important;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #ff5c5c;
+}
+
+.navbar-light .navbar-nav .nav-link:active {
+  color: #ff5c5c;
+}
+
+@media (max-width: 991px) {
+  .navbar-light .navbar-nav {
+    border: #ff5c5c solid 1px;
+    border-radius: 5px;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+  }
+}
+
 #mainNav {
   min-height: 56px;
-  background-color: #f6988e;
+  background-color: #fef2ee;
 }
 
 #mainNav .navbar-toggler {
   font-size: 80%;
   padding: 0.75rem;
-  color: #fff;
-  border: 1px solid #fff;
+  color: #ff5c5c;
+  border: 1px solid #ff5c5c;
 }
 
 #mainNav .navbar-toggler:focus {
@@ -21,7 +41,7 @@
 }
 
 #mainNav .navbar-brand {
-  color: #231F20;
+  color: #231f20;
   font-weight: 700;
   padding: 0;
 }
@@ -41,49 +61,61 @@
   background-color: transparent;
 }
 
+#mainNav .navbar-nav .navbar-link {
+  color: #ff5c5c !important;
+}
+
+#mainNav .navbar-nav .navbar-link:hover {
+  color: #ff5c5c;
+}
+
+#mainNav .navbar-nav .navbar-link:active {
+  color: #ff5c5c;
+}
+
 @media (min-width: 992px) {
   #mainNav {
     padding-top: 0;
     padding-bottom: 0;
     border-bottom: none;
-    background-color: #f6988e;
+    background-color: #fef2ee;
     -webkit-transition: background-color 0.3s ease-in-out;
     transition: background-color 0.3s ease-in-out;
   }
   #mainNav .navbar-brand {
     padding: 0.5rem 0;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 92, 92, 0.5);
   }
   #mainNav .nav-link {
     -webkit-transition: none;
     transition: none;
     padding: 2rem 1.5rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 92, 92, 0.5);
   }
   #mainNav .nav-link:hover {
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 92, 92, 0.75);
   }
   #mainNav .nav-link:active {
     color: white;
   }
   #mainNav.navbar-shrink .navbar-brand {
-    color: #231F20;
+    color: #231f20;
   }
   #mainNav.navbar-shrink .nav-link {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 92, 92, 0.5);
     padding: 1.5rem 1.5rem 1.25rem;
     border-bottom: 0.25rem solid transparent;
   }
   #mainNav.navbar-shrink .nav-link:hover {
-    color: #fff;
+    color: #ff5c5c;
   }
   #mainNav.navbar-shrink .nav-link:active {
-    color: #d9d9d9;
+    color: #ff1010;
   }
   #mainNav.navbar-shrink .nav-link.active {
-    color: #fff;
+    color: #ff5c5c;
     outline: none;
-    border-bottom: 0.25rem solid #fff;
+    border-bottom: 0.25rem solid #ff5c5c;
   }
 }
 
@@ -93,11 +125,15 @@
   height: auto;
   min-height: 35rem;
   padding: 15rem 0;
-  background-color: #f6988e;
+  background-color: #fef2ee;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;
+}
+
+.masthead img {
+  max-height: 500px;
 }
 
 .masthead h1 {
@@ -166,8 +202,8 @@
 
 .about-section {
   padding: 5rem 0;
-  background: -webkit-gradient(linear, left top, left bottom, from(#231F20), color-stop(75%, rgba(35, 31, 32, 0.9)), to(rgba(35, 31, 32, 0.8)));
-  background: linear-gradient(to bottom, #231F20 0%, rgba(35, 31, 32, 0.9) 75%, rgba(35, 31, 32, 0.8) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#231f20), color-stop(75%, rgba(35, 31, 32, 0.9)), to(rgba(35, 31, 32, 0.8)));
+  background: linear-gradient(to bottom, #231f20 0%, rgba(35, 31, 32, 0.9) 75%, rgba(35, 31, 32, 0.8) 100%);
 }
 
 .about-section p {
@@ -473,8 +509,8 @@
 
 .author-section {
   padding: 5rem 0 5rem 0;
-  background: -webkit-gradient(linear, left top, left bottom, from(#231F20), color-stop(75%, rgba(35, 31, 32, 0.9)), to(rgba(35, 31, 32, 0.8)));
-  background: linear-gradient(to bottom, #231F20 0%, rgba(35, 31, 32, 0.9) 75%, rgba(35, 31, 32, 0.8) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#231f20), color-stop(75%, rgba(35, 31, 32, 0.9)), to(rgba(35, 31, 32, 0.8)));
+  background: linear-gradient(to bottom, #231f20 0%, rgba(35, 31, 32, 0.9) 75%, rgba(35, 31, 32, 0.8) 100%);
 }
 
 .author-section .profile-img {
@@ -711,7 +747,7 @@ a:focus, a:hover {
 }
 
 .bg-black {
-  background-color: #231F20 !important;
+  background-color: #231f20 !important;
 }
 
 .bg-primary {
