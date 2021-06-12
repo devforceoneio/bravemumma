@@ -2,14 +2,14 @@
 .footer {
   padding: 25px 0;
   text-align: center;
-  background-color: $pink;
+  background-color: $light-pink;
 
   span.copyright {
     font-size: 90%;
     line-height: 40px;
     text-transform: none;
     @include heading-font;
-    color: $white;
+    color: $bright-pink;
   }
   ul {
     margin-bottom: 0;
@@ -26,14 +26,15 @@
         -webkit-transition: all 0.3s;
         -moz-transition: all 0.3s;
         transition: all 0.3s;
-        color: $pink;
+        color: $bright-pink;
         border-radius: 100%;
         outline: none;
         background-color: $white;
         &:active,
         &:focus,
         &:hover {
-          background-color: $gray-900;
+          background-color: $bright-pink;
+          color: $white;
         }
       }
     }
@@ -43,6 +44,6 @@
     line-height: 40px;
     text-transform: none;
     @include heading-font;
-    color: $white;
+    color: $bright-pink;
   }
 }
