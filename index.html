@@ -842,5 +842,25 @@
     <!-- Custom scripts for this template -->
     <!-- <script src="js/jquery.firstVisitPopup.min.js"></script> -->
     <script src="js/grayscale.min.js"></script>
+    <script>
+      function domReady() {
+        var x = document.getElementsByClassName("bannerContent__description");
+        console.log("bannerContent__description", x);
+      }
+      if (document.addEventListener) {
+        document.addEventListener(
+          "DOMContentLoaded",
+          function () {
+            document.removeEventListener(
+              "DOMContentLoaded",
+              arguments.callee,
+              false
+            );
+            domReady();
+          },
+          false
+        );
+      }
+    </script>
   </body>
 </html>
