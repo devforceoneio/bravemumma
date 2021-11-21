@@ -432,7 +432,7 @@
                       },
 
                       onError: function (err) {
-                        console.log(err);
+                        $("#paymentErrorModal").modal("show");
                       },
                     })
                     .render("#paypal-button-container");
@@ -447,8 +447,8 @@
           <div class="modal-dialog modal-confirm">
             <div class="modal-content">
               <div class="modal-header justify-content-center">
-                <div class="icon-box">
-                  <i class="fas fa-check">&#xE876;</i>
+                <div class="icon-box align-items-center justify-content-center">
+                  <i class="fas fa-check"></i>
                 </div>
                 <button
                   type="button"
@@ -462,8 +462,8 @@
               <div class="modal-body text-center">
                 <h4>Success!</h4>
                 <p>
-                  Your payment was successful. You will receive an email soon with a
-                  download link.
+                  Your payment was successful. You will receive an email soon
+                  with a download link.
                 </p>
                 <button class="btn btn-primary mt-3" data-dismiss="modal">
                   <span>CLOSE</span>
@@ -472,7 +472,36 @@
             </div>
           </div>
         </div>
-        
+
+        <div id="paymentErrorModal" class="modal fade">
+          <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+              <div
+                class="modal-header payment-error align-items-center justify-content-center"
+              >
+                <div class="icon-box">
+                  <i class="fas fa-times"></i>
+                </div>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-hidden="true"
+                >
+                  &times;
+                </button>
+              </div>
+              <div class="modal-body text-center">
+                <h4>Payment failed</h4>
+                <p>Your payment was unsuccessful.</p>
+                <button class="btn btn-primary mt-3" data-dismiss="modal">
+                  <span>CLOSE</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Featured Book Row -->
         <div class="row align-items-center no-gutters mb-4 mb-lg-5">
           <div class="col-xl-8 col-lg-7">
