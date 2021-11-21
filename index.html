@@ -424,20 +424,8 @@
                         return actions.order
                           .capture()
                           .then(function (orderData) {
-                            // Full available details
-                            console.log(
-                              "Capture result",
-                              orderData,
-                              JSON.stringify(orderData, null, 2)
-                            );
-
                             // Show a success message within this page, e.g.
-                            const element = document.getElementById(
-                              "paypal-button-container"
-                            );
-                            element.innerHTML = "";
-                            element.innerHTML =
-                              "<h3>Thank you for your payment!</h3>";
+                            $("#paymentSuccessModal").modal("show");
 
                             // Or go to another URL:  actions.redirect('thank_you.html');
                           });
@@ -455,6 +443,36 @@
           </div>
         </div>
 
+        <div id="paymentSuccessModal" class="modal fade">
+          <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+              <div class="modal-header justify-content-center">
+                <div class="icon-box">
+                  <i class="fas fa-check">&#xE876;</i>
+                </div>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-hidden="true"
+                >
+                  &times;
+                </button>
+              </div>
+              <div class="modal-body text-center">
+                <h4>Success!</h4>
+                <p>
+                  Your payment was successful. You will receive an email soon with a
+                  download link.
+                </p>
+                <button class="btn btn-primary mt-3" data-dismiss="modal">
+                  <span>CLOSE</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
         <!-- Featured Book Row -->
         <div class="row align-items-center no-gutters mb-4 mb-lg-5">
           <div class="col-xl-8 col-lg-7">
