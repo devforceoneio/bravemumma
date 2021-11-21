@@ -151,8 +151,8 @@
               <a
                 class="nav-link js-scroll-trigger"
                 href="#books"
-                onclick="ga('send', 'event', 'Nav', 'Click', 'The Book')"
-                >The Book</a
+                onclick="ga('send', 'event', 'Nav', 'Click', 'The Books')"
+                >The Books</a
               >
             </li>
             <li class="nav-item">
@@ -362,7 +362,96 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading">The Book</h2>
+            <h2 class="section-heading">The Books</h2>
+          </div>
+        </div>
+
+        <!-- Featured Book Row -->
+        <div class="row align-items-center no-gutters mb-4 mb-lg-5">
+          <div class="col-xl-8 col-lg-7">
+            <img
+              class="img-fluid mb-3 mb-lg-0 featured-img"
+              src="img/ebook.jpeg"
+              alt=""
+            />
+          </div>
+          <div class="col-xl-4 col-lg-5">
+            <div class="featured-text text-center text-lg-left">
+              <h4 style="color: #ff5c5c">Bravemumma eBook</h4>
+              <p class="text-black-50 mb-0">
+                The Bravemumma eBook is an electronic download.
+              </p>
+              <br />
+              <p class="text-black-50 mb-0">
+                It gives lots of tips and tricks on how to manage prolapse on
+                daily basis.
+              </p>
+              <br />
+
+              <!-- PayPal button -->
+              <div id="smart-button-container">
+                <div style="text-align: center">
+                  <div id="paypal-button-container"></div>
+                </div>
+              </div>
+              <script
+                src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD"
+                data-sdk-integration-source="button-factory"
+              ></script>
+              <script>
+                function initPayPalButton() {
+                  paypal
+                    .Buttons({
+                      style: {
+                        shape: "pill",
+                        color: "gold",
+                        layout: "vertical",
+                        label: "buynow",
+                      },
+
+                      createOrder: function (data, actions) {
+                        return actions.order.create({
+                          purchase_units: [
+                            {
+                              description: "Bravemumma eBook",
+                              amount: { currency_code: "USD", value: 9.95 },
+                            },
+                          ],
+                        });
+                      },
+
+                      onApprove: function (data, actions) {
+                        return actions.order
+                          .capture()
+                          .then(function (orderData) {
+                            // Full available details
+                            console.log(
+                              "Capture result",
+                              orderData,
+                              JSON.stringify(orderData, null, 2)
+                            );
+
+                            // Show a success message within this page, e.g.
+                            const element = document.getElementById(
+                              "paypal-button-container"
+                            );
+                            element.innerHTML = "";
+                            element.innerHTML =
+                              "<h3>Thank you for your payment!</h3>";
+
+                            // Or go to another URL:  actions.redirect('thank_you.html');
+                          });
+                      },
+
+                      onError: function (err) {
+                        console.log(err);
+                      },
+                    })
+                    .render("#paypal-button-container");
+                }
+                initPayPalButton();
+              </script>
+            </div>
           </div>
         </div>
 
@@ -404,9 +493,10 @@
               </button>
             </div>
           </div>
+        </div>
 
-          <!-- Book One Row -->
-          <!-- <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+        <!-- Book One Row -->
+        <!-- <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
           <div class="col-lg-6">
             <img class="img-fluid" src="img/demo-image-01.jpg" alt="" />
           </div>
@@ -426,10 +516,10 @@
               </div>
             </div>
           </div>
-        </div> -->
+          </div>
 
           <!-- Book Two Row -->
-          <!-- <div class="row justify-content-center no-gutters">
+        <!-- <div class="row justify-content-center no-gutters">
           <div class="col-lg-6">
             <img class="img-fluid" src="img/demo-image-02.jpg" alt="" />
           </div>
@@ -451,7 +541,6 @@
             </div>
           </div>
         </div> -->
-        </div>
       </div>
     </section>
 
