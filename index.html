@@ -395,7 +395,7 @@
                 </div>
               </div>
               <script
-                src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD"
+                src="https://www.paypal.com/sdk/js?client-id=AQ2hNmvpWxfLBEwL-k_JEiQF9-mEZ6bck5mIEDpgby92NXNSDQHSfcIVJ_h7DcD0uvUuGrvD7KroqVVe&enable-funding=venmo&currency=USD"
                 data-sdk-integration-source="button-factory"
               ></script>
               <script>
@@ -425,14 +425,18 @@
                           .capture()
                           .then(function (orderData) {
                             // Show a success message within this page, e.g.
-                            $("#paymentSuccessModal").modal("show");
+                            setTimeout(() => {
+                              $("#paymentSuccessModal").modal("show");
+                            }, 500);
 
                             // Or go to another URL:  actions.redirect('thank_you.html');
                           });
                       },
 
                       onError: function (err) {
-                        $("#paymentErrorModal").modal("show");
+                        setTimeout(() => {
+                          $("#paymentErrorModal").modal("show");
+                        }, 500);
                       },
                     })
                     .render("#paypal-button-container");
