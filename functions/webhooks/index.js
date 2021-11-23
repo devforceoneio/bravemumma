@@ -5,7 +5,13 @@ const nodemailer = require("nodemailer");
 const mg = require("nodemailer-mailgun-transport");
 const fs = require("fs");
 const path = require("path");
+const admin = require("../admin")();
 const app = require("../express")();
+
+const API_URL =
+  process.env.FUNCTIONS_EMULATOR === "true"
+    ? "http://localhost:5000/bravemumma-29fc5/asia-northeast1"
+    : "https://asia-northeast1-bravemumma-29fc5.cloudfunctions.net";
 
 app.post("/paypal", async (req, res) => {
   try {
@@ -49,13 +55,34 @@ app.post("/paypal", async (req, res) => {
       const description = webhook_event.resource.purchase_units[0].description;
       const amount = webhook_event.resource.purchase_units[0].amount;
       const payer = webhook_event.resource.payer;
+      const download_id = webhook_event.resource.purchase_units[0].custom_id;
+
+      const productDoc = await admin
+        .firestore()
+        .collection("products")
+        .doc(download_id)
+        .get();
+      let productData;
+      if (!productDoc.exists) {
+        throw new Error(`Cannot find product data for ${download_id}`);
+      }
+      productData = productDoc.data();
 
       if (
         webhook_event.event_type === "CHECKOUT.ORDER.APPROVED" &&
-        description.toLowerCase().includes("ebook") &&
-        amount.currency_code === "USD" &&
-        amount.value === "9.95"
+        amount.currency_code === productData.currency_code &&
+        amount.value === productData.value
       ) {
+        const purchasesRef = admin
+          .firestore()
+          .collection(`purchases-${download_id}`)
+          .doc(payer.payer_id);
+
+        await purchasesRef.set(
+          { payer, download_id, available_downloads: 2 },
+          { merge: true }
+        );
+
         const smtpTransport = nodemailer.createTransport(
           mg({
             auth: {
@@ -68,42 +95,40 @@ app.post("/paypal", async (req, res) => {
           path.join(__dirname, "../views/email.handlebars"),
           "utf8"
         );
-        const emailAttachment = fs.readFileSync(
-          path.join(__dirname, "../attachments/ebook.pdf"),
-          "binary"
-        );
+
+        handlebars.registerHelper("link", (my_link) => {
+          const url = handlebars.escapeExpression(my_link);
+          const result = "<a href='" + url + "'>" + my_link + "</a>";
+          return new handlebars.SafeString(result);
+        });
+
         const template = handlebars.compile(emailTemplateSource);
         const htmlToSend = template({
           name: payer.name.given_name,
-          product: "Bravemumma eBook",
+          product: description,
+          downloadLink: `${API_URL}/downloads?payer_id=${payer.payer_id}&download_id=${download_id}`,
         });
 
-        var mailOptions = {
+        const mailOptions = {
           from: '"Bravemumma" <stephanie@bravemumma.com>',
           to: payer.email_address,
           subject: "Your Bravemumma order is now complete",
-          attachments: [
-            {
-              filename: "ebook.pdf",
-              content: new Buffer(emailAttachment, "binary"),
-              contentType: "application/pdf",
-            },
-          ],
           html: htmlToSend,
         };
 
-        smtpTransport.sendMail(mailOptions, function (error, info) {
+        smtpTransport.sendMail(mailOptions, (error, info) => {
           if (error) {
             return console.log(error);
           }
-          console.log("Message sent: " + info.response);
+          console.log(`Email sent to ${payer.email_address}`);
         });
       }
+    } else {
+      return res.status(500).send("Verification failed");
     }
 
     res.status(200).send("EVENT_RECEIVED");
   } catch (e) {
-    // eslint-disable-next-line object-curly-spacing
     res.status(500).send({ success: false, error: e.toString() });
   }
 });
