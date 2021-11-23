@@ -18,7 +18,7 @@ app.get("/", async (req, res) => {
         const { available_downloads } = purchaseDoc.data();
 
         if (available_downloads > 0) {
-          await purchaseDoc.set(
+          await purchasesRef.set(
             { available_downloads: available_downloads - 1 },
             { merge: true }
           );
