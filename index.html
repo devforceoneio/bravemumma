@@ -415,6 +415,7 @@
                             {
                               description: "Bravemumma eBook",
                               amount: { currency_code: "USD", value: 9.95 },
+                              custom_id: "1000",
                             },
                           ],
                         });
@@ -424,12 +425,9 @@
                         return actions.order
                           .capture()
                           .then(function (orderData) {
-                            // Show a success message within this page, e.g.
                             setTimeout(() => {
                               $("#paymentSuccessModal").modal("show");
                             }, 500);
-
-                            // Or go to another URL:  actions.redirect('thank_you.html');
                           });
                       },
 
