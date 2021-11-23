@@ -71,7 +71,7 @@ app.post("/paypal", async (req, res) => {
       if (
         webhook_event.event_type === "CHECKOUT.ORDER.APPROVED" &&
         amount.currency_code === productData.currency_code &&
-        amount.value === productData.value
+        amount.value === `${productData.value}`
       ) {
         const purchasesRef = admin
           .firestore()
