@@ -8,19 +8,21 @@ const path = require("path");
 const admin = require("../admin")();
 const app = require("../express")();
 
+const IS_PRODUCTION = functions.config().env.is_production === "true";
+const PROJECT_ID = process.env.FIREBASE_CONFIG.projectId;
+const LOCATION_ID = process.env.FIREBASE_CONFIG.locationId;
 const API_URL =
   process.env.FUNCTIONS_EMULATOR === "true"
-    ? "http://localhost:5000/bravemumma-29fc5/asia-northeast1"
-    : "https://asia-northeast1-bravemumma-29fc5.cloudfunctions.net";
+    ? `http://localhost:5000/${PROJECT_ID}/${LOCATION_ID}`
+    : `https://${LOCATION_ID}-${PROJECT_ID}.cloudfunctions.net`;
+const PAYPAL_URL = IS_PRODUCTION
+  ? "https://api-m.paypal.com/v1/notifications/verify-webhook-signature"
+  : "https://api-m.sandbox.paypal.com/v1/notifications/verify-webhook-signature";
 
 app.post("/paypal", async (req, res) => {
   try {
-    const {
-      auth,
-      webhook_id,
-      mailgun_api_key,
-      mailgun_domain,
-    } = functions.config().paypalauth;
+    const { auth, webhook_id } = functions.config().paypalauth;
+    const { api_key, domain } = functions.config().mailgunauth;
     const auth_algo = req.headers["paypal-auth-algo"];
     const cert_url = req.headers["paypal-cert-url"];
     const transmission_id = req.headers["paypal-transmission-id"];
@@ -44,11 +46,7 @@ app.post("/paypal", async (req, res) => {
         Authorization: `Basic ${auth}`,
       },
     };
-    const response = await axios.post(
-      "https://api-m.sandbox.paypal.com/v1/notifications/verify-webhook-signature",
-      payload,
-      options
-    );
+    const response = await axios.post(PAYPAL_URL, payload, options);
     const verificationStatus = response.data.verification_status;
 
     if (verificationStatus === "SUCCESS") {
@@ -86,8 +84,8 @@ app.post("/paypal", async (req, res) => {
         const smtpTransport = nodemailer.createTransport(
           mg({
             auth: {
-              api_key: mailgun_api_key,
-              domain: mailgun_domain,
+              api_key: api_key,
+              domain: domain,
             },
           })
         );
@@ -112,7 +110,9 @@ app.post("/paypal", async (req, res) => {
         const mailOptions = {
           from: '"Bravemumma" <stephanie@bravemumma.com>',
           to: payer.email_address,
-          subject: "Your Bravemumma order is now complete",
+          subject: `${
+            IS_PRODUCTION ? "[TEST] " : ""
+          }Your Bravemumma order is now complete`,
           html: htmlToSend,
         };
 
