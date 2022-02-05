@@ -23,6 +23,8 @@ const PAYPAL_URL = IS_PRODUCTION
 
 app.post("/paypal", async (req, res) => {
   try {
+    console.log("headers: " + JSON.stringify(req.headers));
+    console.log("body: " + JSON.stringify(req.body));
     const { auth, webhook_id } = functions.config().paypalauth;
     const { api_key, domain } = functions.config().mailgunauth;
     const auth_algo = req.headers["paypal-auth-algo"];
@@ -136,6 +138,7 @@ app.post("/paypal", async (req, res) => {
 
     res.status(200).send("EVENT_RECEIVED");
   } catch (e) {
+    console.log("error: " + JSON.stringify(e));
     res.status(500).send({ success: false, error: e.toString() });
   }
 });
