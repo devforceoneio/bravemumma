@@ -9,8 +9,10 @@ const admin = require("../admin")();
 const app = require("../express")();
 
 const IS_PRODUCTION = functions.config().env.is_production === "true";
-const PROJECT_ID = process.env.FIREBASE_CONFIG.projectId;
-const LOCATION_ID = process.env.FIREBASE_CONFIG.locationId;
+const FIREBASE_CONFIG =
+  process.env.FIREBASE_CONFIG && JSON.parse(process.env.FIREBASE_CONFIG);
+const PROJECT_ID = FIREBASE_CONFIG.projectId;
+const LOCATION_ID = "asia-northeast1";
 const API_URL =
   process.env.FUNCTIONS_EMULATOR === "true"
     ? `http://localhost:5000/${PROJECT_ID}/${LOCATION_ID}`
@@ -77,7 +79,12 @@ app.post("/paypal", async (req, res) => {
           .doc(payer.payer_id);
 
         await purchasesRef.set(
-          { payer, download_id, available_downloads: 2 },
+          {
+            payer,
+            download_id,
+            available_downloads: 2,
+            createdAt: new Date().toISOString(),
+          },
           { merge: true }
         );
 
@@ -109,7 +116,7 @@ app.post("/paypal", async (req, res) => {
 
         const mailOptions = {
           from: '"Bravemumma" <stephanie@bravemumma.com>',
-          to: payer.email_address,
+          to: IS_PRODUCTION ? payer.email_address : "mthommo79@gmail.com",
           subject: `${
             IS_PRODUCTION ? "[TEST] " : ""
           }Your Bravemumma order is now complete`,
