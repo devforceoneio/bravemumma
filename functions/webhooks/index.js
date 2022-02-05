@@ -180,7 +180,9 @@ app.post("/paypal", async (req, res) => {
 
         const mailOptions = {
           from: '"Bravemumma" <no-reply@shop.bravemumma.com>',
-          to: IS_PRODUCTION ? payer.email_address : "mthommo79@gmail.com",
+          to: IS_PRODUCTION
+            ? payer.email_address
+            : "griffensoftwareoz@gmail.com",
           subject: `${
             IS_PRODUCTION ? "" : "[TEST] "
           }Your Bravemumma order is now complete`,
