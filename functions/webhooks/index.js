@@ -133,6 +133,7 @@ app.post("/paypal", async (req, res) => {
         });
       }
     } else {
+      console.log("verification response: " + JSON.stringify(response.data));
       return res.status(500).send("Verification failed");
     }
 
