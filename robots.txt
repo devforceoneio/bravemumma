@@ -1,0 +1,7 @@
+User-agent: Googlebot
+Disallow: /test/
+
+User-agent: *
+Allow: /
+
+Sitemap: http://www.bravemumma.com/sitemap.xml
