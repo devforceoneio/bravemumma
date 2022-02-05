@@ -19,7 +19,10 @@ app.get("/", async (req, res) => {
 
         if (available_downloads > 0) {
           await purchasesRef.set(
-            { available_downloads: available_downloads - 1 },
+            {
+              available_downloads: available_downloads - 1,
+              updatedAt: new Date().toISOString(),
+            },
             { merge: true }
           );
 
