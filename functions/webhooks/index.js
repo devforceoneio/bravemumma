@@ -51,6 +51,9 @@ app.post("/paypal", async (req, res) => {
       !paypalAuthData.expires_at ||
       paypalAuthData.expires_at <= currentTime
     ) {
+      if (paypalAuthData.expires_at <= currentTime) {
+        console.log(`Token is expired, will attempt to get a new token`);
+      }
       const headers = { "Content-Type": "application/x-www-form-urlencoded" };
       const params = new URLSearchParams();
       params.append("grant_type", "client_credentials");
@@ -102,7 +105,7 @@ app.post("/paypal", async (req, res) => {
     const options = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Basic ${access_token}`,
+        Authorization: `Bearer ${access_token}`,
       },
     };
     const response = await axios.post(
@@ -176,7 +179,7 @@ app.post("/paypal", async (req, res) => {
         });
 
         const mailOptions = {
-          from: '"Bravemumma Shop" <no-reply@shop.bravemumma.com>',
+          from: '"Bravemumma" <no-reply@shop.bravemumma.com>',
           to: IS_PRODUCTION ? payer.email_address : "mthommo79@gmail.com",
           subject: `${
             IS_PRODUCTION ? "" : "[TEST] "
@@ -186,13 +189,16 @@ app.post("/paypal", async (req, res) => {
 
         smtpTransport.sendMail(mailOptions, (error, info) => {
           if (error) {
-            return console.log(error);
+            console.log("error sending email: " + JSON.stringify(error));
+            return;
           }
           console.log(`Email sent to ${payer.email_address}`);
         });
       }
     } else {
-      console.log("verification response: " + JSON.stringify(response.data));
+      console.log(
+        "error verification response: " + JSON.stringify(response.data)
+      );
       return res.status(500).send("Verification failed");
     }
 
