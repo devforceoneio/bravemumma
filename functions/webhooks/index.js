@@ -17,7 +17,10 @@ const API_URL =
   process.env.FUNCTIONS_EMULATOR === "true"
     ? `http://localhost:5000/${PROJECT_ID}/${LOCATION_ID}`
     : `https://${LOCATION_ID}-${PROJECT_ID}.cloudfunctions.net`;
-const PAYPAL_URL = IS_PRODUCTION
+const PAYPAL_AUTH_TOKEN_URL = IS_PRODUCTION
+  ? "https://api-m.paypal.com/v1/oauth2/token"
+  : "https://api-m.sandbox.paypal.com/v1/oauth2/token";
+const PAYPAL_VERIFY_WEBHOOK_SIGNATURE_URL = IS_PRODUCTION
   ? "https://api-m.paypal.com/v1/notifications/verify-webhook-signature"
   : "https://api-m.sandbox.paypal.com/v1/notifications/verify-webhook-signature";
 
@@ -25,7 +28,59 @@ app.post("/paypal", async (req, res) => {
   try {
     console.log("headers: " + JSON.stringify(req.headers));
     console.log("body: " + JSON.stringify(req.body));
-    const { auth, webhook_id } = functions.config().paypalauth;
+
+    const { client_id, client_secret, webhook_id } =
+      functions.config().paypalauth;
+    // Get auth token and check expiry
+    const paypalAuthRef = admin.firestore().collection("auth").doc("paypal");
+    const paypalAuthDoc = await paypalAuthRef.get();
+
+    let paypalAuthData;
+    if (!paypalAuthDoc.exists) {
+      console.log(
+        `Cannot find paypal auth data, will attempt to get new token`
+      );
+    } else {
+      paypalAuthData = paypalAuthDoc.data();
+    }
+
+    let access_token;
+    const currentTime = Date.now();
+    if (
+      !paypalAuthData ||
+      !paypalAuthData.expires_at ||
+      paypalAuthData.expires_at <= currentTime
+    ) {
+      const headers = { "Content-Type": "application/x-www-form-urlencoded" };
+      const params = new URLSearchParams();
+      params.append("grant_type", "client_credentials");
+
+      const authTokenResponse = await axios({
+        headers,
+        method: "post",
+        url: PAYPAL_AUTH_TOKEN_URL,
+        auth: {
+          username: client_id,
+          password: client_secret,
+        },
+        params,
+      });
+
+      access_token = authTokenResponse.data.access_token;
+      const expires_at = currentTime + authTokenResponse.data.expires_in * 1000;
+
+      await paypalAuthRef.set(
+        {
+          access_token,
+          expires_at,
+          updatedAt: new Date().toISOString(),
+        },
+        { merge: true }
+      );
+    } else {
+      access_token = paypalAuthData.access_token;
+    }
+
     const { api_key, domain } = functions.config().mailgunauth;
     const auth_algo = req.headers["paypal-auth-algo"];
     const cert_url = req.headers["paypal-cert-url"];
@@ -47,10 +102,14 @@ app.post("/paypal", async (req, res) => {
     const options = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Basic ${auth}`,
+        Authorization: `Basic ${access_token}`,
       },
     };
-    const response = await axios.post(PAYPAL_URL, payload, options);
+    const response = await axios.post(
+      PAYPAL_VERIFY_WEBHOOK_SIGNATURE_URL,
+      payload,
+      options
+    );
     const verificationStatus = response.data.verification_status;
 
     if (verificationStatus === "SUCCESS") {
