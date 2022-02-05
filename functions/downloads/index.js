@@ -46,11 +46,18 @@ app.get("/", async (req, res) => {
           res.type(data.ContentType);
           res.send(data.Body);
         } else {
+          console.log(
+            "No available downloads for " +
+              download_id +
+              " and user " +
+              payer_id
+          );
           res.status(200).sendFile(path.join(__dirname, "../views/error.html"));
         }
       }
     }
   } catch (e) {
+    console.log("error: " + JSON.stringify(e));
     res.status(500).send({ success: false, error: e.toString() });
   }
 });
