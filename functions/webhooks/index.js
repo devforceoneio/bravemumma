@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 const axios = require("axios");
 const handlebars = require("handlebars");
 const nodemailer = require("nodemailer");
-const mg = require("nodemailer-mailgun-transport");
+const sgTransport = require("nodemailer-sendgrid-transport");
 const fs = require("fs");
 const path = require("path");
 const admin = require("../admin")();
@@ -84,7 +84,7 @@ app.post("/paypal", async (req, res) => {
       access_token = paypalAuthData.access_token;
     }
 
-    const { api_key, domain } = functions.config().mailgunauth;
+    const { api_key } = functions.config().sendgridauth;
     const auth_algo = req.headers["paypal-auth-algo"];
     const cert_url = req.headers["paypal-cert-url"];
     const transmission_id = req.headers["paypal-transmission-id"];
@@ -153,10 +153,9 @@ app.post("/paypal", async (req, res) => {
         );
 
         const smtpTransport = nodemailer.createTransport(
-          mg({
+          sgTransport({
             auth: {
               api_key: api_key,
-              domain: domain,
             },
           })
         );
@@ -194,7 +193,13 @@ app.post("/paypal", async (req, res) => {
             console.log("error sending email: " + JSON.stringify(error));
             return;
           }
-          console.log(`Email sent to ${payer.email_address}`);
+          console.log(
+            `Email sent to ${
+              IS_PRODUCTION
+                ? payer.email_address
+                : "griffensoftwareoz@gmail.com"
+            }`
+          );
         });
       }
     } else {
