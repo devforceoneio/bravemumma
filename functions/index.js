@@ -1,14 +1,17 @@
 const functions = require("firebase-functions");
+const axios = require("axios");
 const admin = require("./admin")();
 const downloads = require("./downloads");
 const users = require("./users");
 const webhooks = require("./webhooks");
 const https = functions.region("asia-northeast1").https;
-const FieldValue = require("firebase-admin").firestore.FieldValue;
 
 module.exports.downloads = https.onRequest(downloads);
 module.exports.users = https.onRequest(users);
 module.exports.webhooks = https.onRequest(webhooks);
+
+const CIRCLE_API_INVITE_MEMBER_URL =
+  "https://app.circle.so/api/v1/community_members";
 
 class UnauthenticatedError extends Error {
   constructor(message) {
@@ -93,7 +96,26 @@ module.exports.createUser = functions.https.onCall(async (data, context) => {
         .doc(requestId)
         .update({ status: "approved" });
     }
-    return { result: "The new user has been successfully created." };
+
+    const { token, community_id } = functions.config().circleauth;
+    const fullName = (data.firstName + " " + data.lastName).trim();
+    const options = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      params: {
+        email: data.emailAddress,
+        name: fullName,
+        community_id: community_id,
+      },
+    };
+    await axios.post(CIRCLE_API_INVITE_MEMBER_URL, {}, options);
+
+    return {
+      result:
+        "The new user has been successfully created and Circle invite sent",
+    };
   } catch (error) {
     if (error.type === "UnauthenticatedError") {
       throw new functions.https.HttpsError("unauthenticated", error.message);
