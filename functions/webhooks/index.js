@@ -38,7 +38,7 @@ app.post("/paypal", async (req, res) => {
     let paypalAuthData;
     if (!paypalAuthDoc.exists) {
       console.log(
-        `Cannot find paypal auth data, will attempt to get new token`
+        `Cannot find paypal auth data, will attempt to get new token`,
       );
     } else {
       paypalAuthData = paypalAuthDoc.data();
@@ -78,7 +78,7 @@ app.post("/paypal", async (req, res) => {
           expires_at,
           updatedAt: new Date().toISOString(),
         },
-        { merge: true }
+        { merge: true },
       );
     } else {
       access_token = paypalAuthData.access_token;
@@ -111,7 +111,7 @@ app.post("/paypal", async (req, res) => {
     const response = await axios.post(
       PAYPAL_VERIFY_WEBHOOK_SIGNATURE_URL,
       payload,
-      options
+      options,
     );
     const verificationStatus = response.data.verification_status;
 
@@ -149,7 +149,7 @@ app.post("/paypal", async (req, res) => {
             available_downloads: 2,
             createdAt: new Date().toISOString(),
           },
-          { merge: true }
+          { merge: true },
         );
 
         const smtpTransport = nodemailer.createTransport(
@@ -157,11 +157,11 @@ app.post("/paypal", async (req, res) => {
             auth: {
               api_key: api_key,
             },
-          })
+          }),
         );
         const emailTemplateSource = fs.readFileSync(
-          path.join(__dirname, "../views/email.handlebars"),
-          "utf8"
+          path.join(__dirname, "../views/ebook_email.handlebars"),
+          "utf8",
         );
 
         handlebars.registerHelper("link", (my_link) => {
@@ -198,13 +198,13 @@ app.post("/paypal", async (req, res) => {
               IS_PRODUCTION
                 ? payer.email_address
                 : "griffensoftwareoz@gmail.com"
-            }`
+            }`,
           );
         });
       }
     } else {
       console.log(
-        "error verification response: " + JSON.stringify(response.data)
+        "error verification response: " + JSON.stringify(response.data),
       );
       return res.status(500).send("Verification failed");
     }

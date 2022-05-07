@@ -1,6 +1,6 @@
 const express = () => {
   const express = require("express");
-  const cors = require("cors")({ origin: true });
+  const cors = require("cors");
   const morgan = require("morgan");
   const helmet = require("helmet");
   const nocache = require("nocache");
@@ -9,7 +9,7 @@ const express = () => {
 
   app.use(helmet());
   app.use(nocache());
-  app.use(cors);
+  app.use(cors({ origin: true }));
   app.use(morgan("combined"));
 
   return app;

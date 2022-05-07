@@ -1,0 +1,23 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fef2ee;
+}
+
+.Navbar {
+  background-color: #fef2ee;
+}
+
+.App-logo img {
+  pointer-events: none;
+}
+
+.loader {
+  margin: 0 auto;
+}
+#logoutButton {
+  background-color: #f26d5f;
+  border-color: #f26d5f;
+}
