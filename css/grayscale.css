@@ -643,7 +643,7 @@ cf-input {
 }
 
 .dark-theme .conversational-form cf-input-button {
-  background: var(--cf-color-dark-pink);
+  background: var(--cf-color-black);
   height: 42px;
   width: 42px;
   border: none;
