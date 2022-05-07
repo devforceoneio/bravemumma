@@ -198,6 +198,55 @@
     <!-- Form -->
     <form id="form">
       <fieldset>
+        <label for="question1"
+          >This group is for women looking for information and support with
+          pelvic organ prolapse. We provide a safe space for women to seek help
+          and contribute to this community. Briefly share your experience with
+          POP so far.</label
+        >
+        <input
+          required
+          cf-questions="This group is for women looking for information and support with pelvic organ prolapse. We provide a safe space for women to seek help and contribute to this community. Briefly share your experience with POP so far."
+          type="text"
+          class="form-control"
+          name="question1"
+          id="question1"
+        />
+      </fieldset>
+      <fieldset>
+        <label for="question2"
+          >What's your best email to send you the 'Welcome & Guided Tour Video'
+          so you know how to get the most from this group? You'll only ever be
+          sent helpful information about POP. (You can opt out at anytime and
+          remain in this space)</label
+        >
+        <input
+          required
+          cf-questions="What's your best email to send you the 'Welcome & Guided Tour Video' so you know how to get the most from this group? You'll only ever be sent helpful information about POP. (You can opt out at anytime and remain in this space)."
+          type="text"
+          class="form-control"
+          name="question2"
+          id="question2"
+        />
+      </fieldset>
+      <fieldset
+        cf-questions="Have you read, understood and agree to follow the 'group rules' and know that if they are not respected, you will be contacted by the admin and could be removed from this group?"
+      >
+        <input type="radio" name="question3" id="question3-yes" value="yes" />
+        <label for="question3-yes">Yes</label>
+
+        <input type="radio" name="question3" id="question3-no" value="no" />
+        <label for="question3-no">No</label>
+      </fieldset>
+      <fieldset cf-questions="Do you agree to the group rules from the admin?">
+        <input type="radio" name="question4" id="question4-yes" value="yes" />
+        <label for="question4-yes">Yes</label>
+
+        <input type="radio" name="question4" id="question4-no" value="no" />
+        <label for="question4-no">No</label>
+      </fieldset>
+
+      <fieldset>
         <label for="firstname">What's your first name?</label>
         <input
           required
@@ -208,7 +257,6 @@
           id="firstName"
         />
       </fieldset>
-
       <fieldset>
         <label for="lastname">What's your last name?</label>
         <input
@@ -220,84 +268,6 @@
           id="lastName"
         />
       </fieldset>
-
-      <!-- <fieldset>
-        <label for="occupation">Occupation</label>
-        <div class="radio">
-          <label>
-            <input
-              cf-questions="Great to meet you, {firstname}! I'm a web form, what do you do?|Awesome, {firstname}! And what do you do?"
-              type="radio"
-              name="occupation"
-              id="occupation-1"
-              value="developer"
-            />
-            Developer
-          </label>
-        </div>
-        <div class="radio">
-          <label>
-            <input
-              type="radio"
-              name="occupation"
-              id="occupation-2"
-              value="designer"
-            />
-            Designer
-          </label>
-        </div>
-        <div class="radio">
-          <label>
-            <input
-              type="radio"
-              name="occupation"
-              id="occupation-3"
-              value="curious-mind"
-            />
-            Curious mind
-          </label>
-        </div>
-        <div class="radio">
-          <label>
-            <input
-              type="radio"
-              name="occupation"
-              id="occupation-2"
-              value="lost"
-            />
-            Lost cause
-          </label>
-        </div>
-      </fieldset> -->
-
-      <!-- <fieldset>
-        <label for="company">Company</label>
-        <input
-          cf-questions="Which company are you with?"
-          type="text"
-          class="form-control"
-          name="company"
-          id="company"
-        />
-      </fieldset> -->
-
-      <!-- <fieldset>
-        <label for="opinion"
-          >Will conversational interfaces be everywhere?</label
-        >
-        <select
-          cf-questions="Do you think conversational forms will replace web forms in the future?"
-          name="opinion"
-          id="opinion"
-          class="form-control"
-        >
-          <option></option>
-          <option>Definitely</option>
-          <option>Maybe</option>
-          <option>No</option>
-        </select>
-      </fieldset> -->
-
       <fieldset>
         <label for="email">Email</label>
         <input
@@ -310,33 +280,6 @@
           id="your-email"
         />
       </fieldset>
-
-      <!-- <fieldset style="display: none">
-        <label for="thats-all">Are you ready to submit the form?</label>
-        <select
-          cf-questions="Are you ready to submit the form?"
-          name="submit-form"
-          id="submit-form"
-          class="form-control"
-        >
-          <option></option>
-          <option>Yup</option>
-        </select>
-      </fieldset> -->
-
-      <!-- <fieldset style="display: none">
-        <label for="thats-all">Want to start over?</label>
-        <select
-          cf-questions="Want to start over?"
-          name="repeat"
-          id="repeat"
-          class="form-control"
-        >
-          <option></option>
-          <option>Yes, let's go again</option>
-        </select>
-      </fieldset> -->
-
       <button type="submit" class="btn btn-default">Submit</button>
     </form>
     <div id="cf-context" class="dark-theme" role="cf-context" cf-context></div>
@@ -412,26 +355,49 @@
         window.cf.ConversationalForm.startTheConversation({
           formEl: document.getElementById("form"),
           context: document.getElementById("cf-context"),
-          userImage: "https://gulpjs.com/img/gulp-white-text.svg",
+          userImage: "/img/female-user.svg",
           robotImage: "/img/bravemumma_logo_with_heart.png",
           submitCallback: async function (props) {
             var formData = conversationalForm.getFormData(true);
             formData = {
-              ...formData,
-              results: [{ question: "How many 1s in 10?", answer: "10" }],
-            };
-            const response = await fetch(
-              "https://asia-northeast1-bravemumma-29fc5.cloudfunctions.net/users/userSignup",
-              // "http://localhost:5001/bravemumma-29fc5/asia-northeast1/users/userSignup",
-              {
-                method: "POST",
-                body: JSON.stringify(formData),
-                headers: {
-                  "Content-Type": "application/json",
+              firstName: formData.firstName,
+              lastName: formData.lastName,
+              emailAddress: formData.emailAddress,
+              results: [
+                {
+                  question:
+                    "This group is for women looking for information and support with pelvic organ prolapse. We provide a safe space for women to seek help and contribute to this community. Briefly share your experience with POP so far.",
+                  answer: formData.question1,
                 },
-              },
-            );
-            console.log("Response: ", await response.json());
+                {
+                  question:
+                    "What's your best email to send you the 'Welcome & Guided Tour Video' so you know how to get the most from this group? You'll only ever be sent helpful information about POP. (You can opt out at anytime and remain in this space).",
+                  answer: formData.question2,
+                },
+                {
+                  question:
+                    "Have you read, understood and agree to follow the 'group rules' and know that if they are not respected, you will be contacted by the admin and could be removed from this group.",
+                  answer: formData.question3,
+                },
+                {
+                  question: "Do you agree to the group rules from the admin?",
+                  answer: formData.question4?.[0] ? "Yes" : "No",
+                },
+              ],
+            };
+            console.log("Answers", formData);
+            // const response = await fetch(
+            //   "https://asia-northeast1-bravemumma-29fc5.cloudfunctions.net/users/userSignup",
+            //   // "http://localhost:5001/bravemumma-29fc5/asia-northeast1/users/userSignup",
+            //   {
+            //     method: "POST",
+            //     body: JSON.stringify(formData),
+            //     headers: {
+            //       "Content-Type": "application/json",
+            //     },
+            //   },
+            // );
+            // console.log("Response: ", await response.json());
           },
         });
 

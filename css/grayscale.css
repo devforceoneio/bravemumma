@@ -525,11 +525,17 @@
   --cf-color-grey: #ebebeb;
   --cf-color-white: white;
   --cf-color-pink: #fef2ee;
+  --cf-color-dark-pink: #f26d5f;
+}
+
+cf-input {
+  background: var(--cf-color-pink) !important;
 }
 
 .dark-theme .conversational-form {
   font-family: Helvetica Neue, Helvetica;
   font-style: normal;
+  background-color: var(--cf-color-pink);
 }
 
 .dark-theme .conversational-form cf-chat scrollable::-webkit-scrollbar {
@@ -570,12 +576,12 @@
 }
 
 .dark-theme .conversational-form cf-chat-response.robot text {
-  color: var(--cf-color-black);
+  color: var(--cf-color-white);
 }
 
 .dark-theme .conversational-form cf-chat-response.robot text > p {
   border-radius: 4px 20px 20px 20px;
-  background: var(--cf-color-grey);
+  background: var(--cf-color-dark-pink);
 }
 
 .dark-theme .conversational-form cf-chat-response.robot text > p:not(:only-child):first-child {
@@ -587,9 +593,10 @@
 }
 
 .dark-theme .conversational-form cf-chat-response.robot thumb {
-  background-color: var(--cf-color-pink);
+  background-color: white;
   background-size: 20px 20px;
   background-repeat: no-repeat;
+  border-color: var(--cf-color-dark-pink);
 }
 
 .dark-theme .conversational-form cf-chat-response.user {
@@ -606,7 +613,7 @@
 }
 
 .dark-theme .conversational-form cf-chat-response.user thumb {
-  background-color: var(--cf-color-black);
+  background-color: var(--cf-color-pink);
   background-size: 20px 16px;
   background-repeat: no-repeat;
   background-position: 11px 12px;
@@ -636,7 +643,7 @@
 }
 
 .dark-theme .conversational-form cf-input-button {
-  background: var(--cf-color-black);
+  background: var(--cf-color-dark-pink);
   height: 42px;
   width: 42px;
   border: none;
