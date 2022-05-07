@@ -8,10 +8,8 @@ import {
   Row,
   Container,
   Card,
-  Table as BTable,
 } from "react-bootstrap";
 import ReactLoading from "react-loading";
-import { useTable } from "react-table";
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -27,12 +25,13 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { getFunctions, httpsCallable } from "firebase/functions";
+import { Formik, Form as FormikForm } from "formik";
 import moment from "moment";
+import * as Yup from "yup";
 import CreateUserModal from "./CreateUserModal";
 import { db, auth } from "./firebase";
-import { Formik, Form as FormikForm } from "formik";
-import * as Yup from "yup";
 import logo from "./images/bravemumma_logo_with_heart.png";
+import UsersList from "./UsersList";
 import "./App.css";
 
 const signInSchema = Yup.object().shape({
@@ -45,55 +44,6 @@ const pendingUserSignupRequestsQuery = query(
   where("status", "==", "pending"),
 );
 
-const SignupSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
-  lastName: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
-  email: Yup.string().email("Invalid email").required("Required"),
-});
-
-const Table = ({ columns, data }) => {
-  const { getTableProps, headerGroups, rows, prepareRow } = useTable({
-    columns,
-    data,
-  });
-
-  return (
-    <BTable striped bordered hover size="sm" {...getTableProps()}>
-      <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody>
-        {rows.map((row, i) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => {
-                return (
-                  <td className="align-middle" {...cell.getCellProps()}>
-                    {cell.render("Cell")}
-                  </td>
-                );
-              })}
-            </tr>
-          );
-        })}
-      </tbody>
-    </BTable>
-  );
-};
-
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(undefined);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -101,7 +51,7 @@ const App = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-  const [showUserModal, setShowUserModal] = useState(true);
+  const [showUserModal, setShowUserModal] = useState(false);
   const [userModalMode, usetUserModalMode] = useState("create");
 
   const createUser = (args) => {
@@ -428,7 +378,7 @@ const App = () => {
                   </Col>
                 </Row>
                 {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-                <Table columns={columns} data={data} />
+                <UsersList columns={columns} data={data} />
               </>
             )
           )}
