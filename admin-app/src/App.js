@@ -244,13 +244,6 @@ const App = () => {
     });
   }, []);
 
-  // useEffect(() => {
-
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, [getSortedRequestsData]);
-
   return (
     <div className="App">
       <Navbar expand="md" className="Navbar justify-content-end pe-3">
