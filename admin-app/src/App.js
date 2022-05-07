@@ -39,16 +39,14 @@ const signInSchema = Yup.object().shape({
   password: Yup.string().required("Required"),
 });
 
-const pendingUserSignupRequestsQuery = query(
-  collection(db, "userSignupRequests"),
-  where("status", "==", "pending"),
-);
+const userSignupRequestsRef = collection(db, "userSignupRequests");
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(undefined);
   const [isAdmin, setIsAdmin] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
-  const [data, setData] = useState([]);
+  const [pendingMembersData, setPendingMembersData] = useState([]);
+  const [approvedMembersData, setApprovedMembersData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [showUserModal, setShowUserModal] = useState(false);
@@ -112,7 +110,7 @@ const App = () => {
       },
       {
         Header: "Request Date",
-        accessor: "requestDate",
+        accessor: "createdOn",
         Cell: ({ cell }) => moment(cell.value).format("Do MMMM YY, h:mm:ssa"),
       },
       {
@@ -142,6 +140,29 @@ const App = () => {
       },
     ],
     [isSaving],
+  );
+
+  const approvedMembersColumns = useMemo(
+    () => [
+      {
+        Header: "First Name",
+        accessor: "firstName",
+      },
+      {
+        Header: "Last Name",
+        accessor: "lastName",
+      },
+      {
+        Header: "Email Address",
+        accessor: "emailAddress",
+      },
+      {
+        Header: "Approved Date",
+        accessor: "updatedAt",
+        Cell: ({ cell }) => moment(cell.value).format("Do MMMM YYYY, h:mm:ssa"),
+      },
+    ],
+    [],
   );
 
   const getCurrentNonAdminRole = (claims) => {
@@ -179,16 +200,13 @@ const App = () => {
         firstName: docData.userDetails?.firstName,
         lastName: docData.userDetails?.lastName,
         emailAddress: docData.userDetails?.emailAddress,
-        requestDate: docData.createdOn?.seconds * 1000,
-        isButtonDisabled: false,
+        status: docData.status,
+        createdOn: docData.createdOn?.seconds * 1000,
+        updatedAt: docData.updatedAt?.seconds * 1000,
       });
     });
     return newData.sort((a, b) =>
-      a.requestDate > b.requestDate
-        ? 1
-        : a.requestDate < b.requestDate
-        ? -1
-        : 0,
+      a.createdOn > b.createdOn ? 1 : a.createdOn < b.createdOn ? -1 : 0,
     );
   }, []);
 
@@ -199,6 +217,22 @@ const App = () => {
         const idTokenResult = await user.getIdTokenResult();
         if (idTokenResult.claims?.admin) {
           setIsAdmin(true);
+          const handleUserSignupRequestsChanges = (querySnapshot) => {
+            getSortedRequestsData(querySnapshot).then((newData) => {
+              setPendingMembersData(
+                newData.filter((request) => request.status === "pending"),
+              );
+              setApprovedMembersData(
+                newData.filter((request) => request.status === "approved"),
+              );
+              setIsLoading(false);
+            });
+          };
+
+          const unsubscribe = onSnapshot(
+            userSignupRequestsRef,
+            handleUserSignupRequestsChanges,
+          );
         } else {
           setIsAdmin(false);
         }
@@ -206,25 +240,16 @@ const App = () => {
         setIsAuthenticated(false);
         setIsAdmin(false);
       }
+      setIsLoading(false);
     });
   }, []);
 
-  useEffect(() => {
-    const handleUserSignupRequestsChanges = (querySnapshot) => {
-      getSortedRequestsData(querySnapshot).then((newData) => {
-        setData(newData);
-        setIsLoading(false);
-      });
-    };
+  // useEffect(() => {
 
-    const unsuscribe = onSnapshot(
-      pendingUserSignupRequestsQuery,
-      handleUserSignupRequestsChanges,
-    );
-    return () => {
-      unsuscribe();
-    };
-  }, [getSortedRequestsData, pendingUserSignupRequestsQuery]);
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, [getSortedRequestsData]);
 
   return (
     <div className="App">
@@ -275,13 +300,22 @@ const App = () => {
                             password,
                           );
                           setErrorMessage("");
-                          let newData = [];
-                          const querySnapshot = await getDocs(
-                            pendingUserSignupRequestsQuery,
-                          );
-                          newData = await getSortedRequestsData(querySnapshot);
-                          setIsLoading(false);
-                          setData(newData);
+                          // let newData = [];
+                          // const querySnapshot = await getDocs(
+                          //   userSignupRequestsQuery,
+                          // );
+                          // newData = await getSortedRequestsData(querySnapshot);
+                          // setIsLoading(false);
+                          // setPendingMembersData(
+                          //   newData.filter(
+                          //     (request) => request.status === "pending",
+                          //   ),
+                          // );
+                          // setApprovedMembersData(
+                          //   newData.filter(
+                          //     (request) => request.status === "approved",
+                          //   ),
+                          // );
                         } catch (e) {
                           setErrorMessage(getErrorMessage(e.message));
                         } finally {
@@ -378,7 +412,15 @@ const App = () => {
                   </Col>
                 </Row>
                 {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-                <UsersList columns={columns} data={data} />
+                <UsersList columns={columns} data={pendingMembersData} />
+
+                <Row fluid="lg">
+                  <h1>Approved Members</h1>
+                </Row>
+                <UsersList
+                  columns={approvedMembersColumns}
+                  data={approvedMembersData}
+                />
               </>
             )
           )}
