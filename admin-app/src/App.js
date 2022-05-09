@@ -29,6 +29,7 @@ import { Formik, Form as FormikForm } from "formik";
 import moment from "moment";
 import * as Yup from "yup";
 import CreateUserModal from "./CreateUserModal";
+import QuestionnaireModal from "./QuestionnaireModal";
 import { db, auth } from "./firebase";
 import logo from "./images/bravemumma_logo_with_heart.png";
 import UsersList from "./UsersList";
@@ -51,11 +52,28 @@ const App = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [showUserModal, setShowUserModal] = useState(false);
   const [userModalMode, usetUserModalMode] = useState("create");
+  const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(false);
+  const [questionnaireModalData, setQuestionnaireModalData] = useState();
 
   const createUser = (args) => {
     const functions = getFunctions();
     const createUserCallable = httpsCallable(functions, "createUser");
     return createUserCallable(args);
+  };
+
+  const handleShowQuestionnaireModal = (values) => {
+    const data = values.map((value, index) => ({
+      index,
+      question: value.question,
+      answer: value.answer,
+    }));
+    setQuestionnaireModalData(data);
+    setShowQuestionnaireModal(true);
+  };
+
+  const handleCloseQuestionnaireModal = () => {
+    setShowQuestionnaireModal(false);
+    setQuestionnaireModalData();
   };
 
   const handleApprove = async ({ id, firstName, lastName, emailAddress }) => {
@@ -94,7 +112,7 @@ const App = () => {
     }
   };
 
-  const columns = useMemo(
+  const pendingMembersColumns = useMemo(
     () => [
       {
         Header: "First Name",
@@ -116,12 +134,23 @@ const App = () => {
       {
         Header: "Actions",
         accessor: "id",
-        Cell: ({ row: { values } }) => (
+        Cell: ({ row }) => (
           <>
             <Button
               size="sm"
+              variant="info"
+              onClick={() =>
+                handleShowQuestionnaireModal(row.original?.questionnaire)
+              }
+              disabled={isSaving}
+            >
+              Answers
+            </Button>
+            <Button
+              size="sm"
               variant="success"
-              onClick={() => handleApprove(values)}
+              onClick={() => handleApprove(row.values)}
+              className="ms-2"
               disabled={isSaving}
             >
               Approve
@@ -129,7 +158,7 @@ const App = () => {
             <Button
               size="sm"
               variant="danger"
-              onClick={() => handleDecline(values)}
+              onClick={() => handleDecline(row.values)}
               className="ms-2"
               disabled={isSaving}
             >
@@ -200,6 +229,8 @@ const App = () => {
         firstName: docData.userDetails?.firstName,
         lastName: docData.userDetails?.lastName,
         emailAddress: docData.userDetails?.emailAddress,
+        questionnaire:
+          docData.questionnaire && JSON.parse(docData.questionnaire),
         status: docData.status,
         createdOn: docData.createdOn?.seconds * 1000,
         updatedAt: docData.updatedAt?.seconds * 1000,
@@ -293,22 +324,6 @@ const App = () => {
                             password,
                           );
                           setErrorMessage("");
-                          // let newData = [];
-                          // const querySnapshot = await getDocs(
-                          //   userSignupRequestsQuery,
-                          // );
-                          // newData = await getSortedRequestsData(querySnapshot);
-                          // setIsLoading(false);
-                          // setPendingMembersData(
-                          //   newData.filter(
-                          //     (request) => request.status === "pending",
-                          //   ),
-                          // );
-                          // setApprovedMembersData(
-                          //   newData.filter(
-                          //     (request) => request.status === "approved",
-                          //   ),
-                          // );
                         } catch (e) {
                           setErrorMessage(getErrorMessage(e.message));
                         } finally {
@@ -405,7 +420,10 @@ const App = () => {
                   </Col>
                 </Row>
                 {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-                <UsersList columns={columns} data={pendingMembersData} />
+                <UsersList
+                  columns={pendingMembersColumns}
+                  data={pendingMembersData}
+                />
 
                 <Row fluid="lg">
                   <h1>Approved Members</h1>
@@ -419,6 +437,11 @@ const App = () => {
           )}
         </Container>
       )}
+      <QuestionnaireModal
+        show={showQuestionnaireModal}
+        onHide={handleCloseQuestionnaireModal}
+        data={questionnaireModalData}
+      />
       <CreateUserModal show={showUserModal} onHide={handleCloseUserModal} />
     </div>
   );
