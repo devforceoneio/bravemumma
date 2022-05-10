@@ -81,7 +81,7 @@ module.exports.createUser = functions.https.onCall(async (data, context) => {
     const userId = userRecord.uid;
 
     const claims = {};
-    claims[role] = role;
+    claims[role] = true;
 
     await admin.auth().setCustomUserClaims(userId, claims);
 
