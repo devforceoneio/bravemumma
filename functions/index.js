@@ -10,6 +10,8 @@ module.exports.downloads = https.onRequest(downloads);
 module.exports.users = https.onRequest(users);
 module.exports.webhooks = https.onRequest(webhooks);
 
+const GOOGLE_RESET_PASSWORD_LINK_URL =
+  "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode";
 const CIRCLE_API_INVITE_MEMBER_URL =
   "https://app.circle.so/api/v1/community_members";
 
@@ -79,7 +81,7 @@ module.exports.createUser = functions.https.onCall(async (data, context) => {
     const userId = userRecord.uid;
 
     const claims = {};
-    claims[role] = "member";
+    claims[role] = role;
 
     await admin.auth().setCustomUserClaims(userId, claims);
 
@@ -95,6 +97,20 @@ module.exports.createUser = functions.https.onCall(async (data, context) => {
         .collection("userSignupRequests")
         .doc(requestId)
         .update({ status: "approved" });
+    }
+
+    if (role === "admin") {
+      const { api_key } = functions.config().webapp;
+      const options = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      await axios.post(
+        `${GOOGLE_RESET_PASSWORD_LINK_URL}?key=${api_key}`,
+        { requestType: "PASSWORD_RESET", email: data.emailAddress },
+        options,
+      );
     }
 
     const { token, community_id } = functions.config().circleauth;
@@ -117,6 +133,7 @@ module.exports.createUser = functions.https.onCall(async (data, context) => {
         "The new user has been successfully created and Circle invite sent",
     };
   } catch (error) {
+    console.log("Error: " + error.message);
     if (error.type === "UnauthenticatedError") {
       throw new functions.https.HttpsError("unauthenticated", error.message);
     } else if (
