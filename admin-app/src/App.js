@@ -246,7 +246,7 @@ const App = () => {
       if (user) {
         setIsAuthenticated(true);
         const idTokenResult = await user.getIdTokenResult();
-        if (idTokenResult.claims?.admin) {
+        if (idTokenResult.claims?.admin === true) {
           setIsAdmin(true);
           const handleUserSignupRequestsChanges = (querySnapshot) => {
             getSortedRequestsData(querySnapshot).then((newData) => {
