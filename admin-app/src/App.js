@@ -3,6 +3,7 @@ import {
   Alert,
   Button,
   Col,
+  Dropdown,
   Form,
   Navbar,
   Row,
@@ -46,6 +47,7 @@ const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(undefined);
   const [isAdmin, setIsAdmin] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
+  const [status, setStatus] = useState("pending");
   const [pendingMembersData, setPendingMembersData] = useState([]);
   const [approvedMembersData, setApprovedMembersData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -404,8 +406,30 @@ const App = () => {
           ) : (
             isAdmin && (
               <>
-                <Row fluid="lg">
-                  <Col md={3} />
+                <Row fluid="lg align-items-center">
+                  <Col md={3}>
+                    <Dropdown
+                      className="float-start"
+                      onSelect={(value) => setStatus(value)}
+                    >
+                      <Dropdown.Toggle id="dropdown-basic" variant="outline">
+                        {(status &&
+                          `${
+                            status?.charAt(0).toUpperCase() + status.slice(1)
+                          }`) ||
+                          "Status"}
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu>
+                        <Dropdown.Item eventKey="pending">
+                          Pending
+                        </Dropdown.Item>
+                        <Dropdown.Item eventKey="approved">
+                          Approved
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </Col>
                   <Col md={6}>
                     <h1>Member Requests</h1>
                   </Col>
@@ -421,16 +445,16 @@ const App = () => {
                 </Row>
                 {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
                 <UsersList
-                  columns={pendingMembersColumns}
-                  data={pendingMembersData}
-                />
-
-                <Row fluid="lg">
-                  <h1>Approved Members</h1>
-                </Row>
-                <UsersList
-                  columns={approvedMembersColumns}
-                  data={approvedMembersData}
+                  columns={
+                    status === "pending"
+                      ? pendingMembersColumns
+                      : approvedMembersColumns
+                  }
+                  data={
+                    status === "pending"
+                      ? pendingMembersData
+                      : approvedMembersData
+                  }
                 />
               </>
             )
