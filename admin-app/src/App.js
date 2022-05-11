@@ -131,7 +131,7 @@ const App = () => {
       {
         Header: "Request Date",
         accessor: "createdOn",
-        Cell: ({ cell }) => moment(cell.value).format("Do MMMM YY, h:mm:ssa"),
+        Cell: ({ cell }) => moment(cell.value).format("Do MMMM YY, h:mma"),
       },
       {
         Header: "Actions",
@@ -190,21 +190,11 @@ const App = () => {
       {
         Header: "Approved Date",
         accessor: "updatedAt",
-        Cell: ({ cell }) => moment(cell.value).format("Do MMMM YYYY, h:mm:ssa"),
+        Cell: ({ cell }) => moment(cell.value).format("Do MMMM YYYY, h:mma"),
       },
     ],
     [],
   );
-
-  const getCurrentNonAdminRole = (claims) => {
-    if (claims.role === "admin") {
-      return "Admin";
-    } else if (claims.role === "member") {
-      return "Member";
-    } else {
-      return undefined;
-    }
-  };
 
   const handleCloseUserModal = () => {
     setShowUserModal(false);
