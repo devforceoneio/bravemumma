@@ -134,10 +134,10 @@ app.post("/paypal", async (req, res) => {
 
       if (webhook_event.event_type === "CHECKOUT.ORDER.APPROVED") {
         if (amount.currency_code !== productData.currency_code) {
-          throw new error("Product data currency code does not match");
+          throw new Error("Product data currency code does not match");
         }
         if (amount.value !== `${productData.value}`) {
-          throw new error("Product data value does not match amount");
+          throw new Error("Product data value does not match amount");
         }
 
         const purchasesRef = admin
