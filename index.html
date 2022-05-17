@@ -352,7 +352,145 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading">Books</h2>
+            <h2 class="section-heading">The Books</h2>
+          </div>
+        </div>
+
+        <!-- Featured Book Row -->
+        <div class="row align-items-center no-gutters mb-4 mb-lg-5">
+          <div class="col-xl-8 col-lg-7">
+            <img
+              class="img-fluid mb-3 mb-lg-0 featured-img"
+              src="img/ebook_cover.png"
+              alt=""
+            />
+          </div>
+          <div class="col-xl-4 col-lg-5">
+            <div class="featured-text text-center text-lg-left">
+              <h4 style="color: #ff5c5c">Bravemumma eBook</h4>
+              <p class="text-black-50 mb-0">
+                The Bravemumma eBook is an electronic download.
+              </p>
+              <br />
+              <p class="text-black-50 mb-0">
+                It gives lots of tips and tricks on how to manage prolapse on
+                daily basis.
+              </p>
+              <br />
+
+              <!-- PayPal button -->
+              <div id="smart-button-container">
+                <div style="text-align: center">
+                  <div id="paypal-button-container"></div>
+                </div>
+              </div>
+              <script
+                src="https://www.paypal.com/sdk/js?client-id=AQ2hNmvpWxfLBEwL-k_JEiQF9-mEZ6bck5mIEDpgby92NXNSDQHSfcIVJ_h7DcD0uvUuGrvD7KroqVVe&enable-funding=venmo&currency=USD"
+                data-sdk-integration-source="button-factory"
+              ></script>
+              <script>
+                function initPayPalButton() {
+                  paypal
+                    .Buttons({
+                      style: {
+                        shape: "pill",
+                        color: "gold",
+                        layout: "vertical",
+                        label: "buynow",
+                      },
+
+                      createOrder: function (data, actions) {
+                        return actions.order.create({
+                          purchase_units: [
+                            {
+                              description: "Bravemumma eBook",
+                              amount: { currency_code: "USD", value: 12.99 },
+                              custom_id: "1000",
+                            },
+                          ],
+                        });
+                      },
+
+                      onApprove: function (data, actions) {
+                        return actions.order
+                          .capture()
+                          .then(function (orderData) {
+                            setTimeout(() => {
+                              $("#paymentSuccessModal").modal("show");
+                            }, 500);
+                          });
+                      },
+
+                      onError: function (err) {
+                        setTimeout(() => {
+                          $("#paymentErrorModal").modal("show");
+                        }, 500);
+                      },
+                    })
+                    .render("#paypal-button-container");
+                }
+                initPayPalButton();
+              </script>
+            </div>
+          </div>
+        </div>
+
+        <div id="paymentSuccessModal" class="modal fade">
+          <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+              <div class="modal-header justify-content-center">
+                <div class="icon-box align-items-center justify-content-center">
+                  <i class="fas fa-check"></i>
+                </div>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-hidden="true"
+                >
+                  &times;
+                </button>
+              </div>
+              <div class="modal-body text-center">
+                <h4>Success!</h4>
+                <p>
+                  Your payment was successful. You will receive an email soon
+                  with a download link.
+                </p>
+                <button class="btn btn-primary mt-3" data-dismiss="modal">
+                  <span>CLOSE</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="paymentErrorModal" class="modal fade">
+          <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+              <div
+                class="modal-header payment-error align-items-center justify-content-center"
+              >
+                <div class="icon-box">
+                  <i class="fas fa-times"></i>
+                </div>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-hidden="true"
+                >
+                  &times;
+                </button>
+              </div>
+              <div class="modal-body text-center">
+                <h4>Payment failed</h4>
+                <p>Your payment was unsuccessful.</p>
+                <button class="btn btn-primary mt-3" data-dismiss="modal">
+                  <span>CLOSE</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
