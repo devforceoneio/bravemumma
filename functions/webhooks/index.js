@@ -132,11 +132,14 @@ app.post("/paypal", async (req, res) => {
       }
       productData = productDoc.data();
 
-      if (
-        webhook_event.event_type === "CHECKOUT.ORDER.APPROVED" &&
-        amount.currency_code === productData.currency_code &&
-        amount.value === `${productData.value}`
-      ) {
+      if (webhook_event.event_type === "CHECKOUT.ORDER.APPROVED") {
+        if (amount.currency_code !== productData.currency_code) {
+          throw new error("Product data currency code does not match");
+        }
+        if (amount.value !== `${productData.value}`) {
+          throw new error("Product data value does not match amount");
+        }
+
         const purchasesRef = admin
           .firestore()
           .collection(`purchases-${download_id}`)
@@ -179,9 +182,7 @@ app.post("/paypal", async (req, res) => {
 
         const mailOptions = {
           from: '"Bravemumma" <no-reply@shop.bravemumma.com>',
-          to: IS_PRODUCTION
-            ? payer.email_address
-            : "griffensoftwareoz@gmail.com",
+          to: IS_PRODUCTION ? payer.email_address : "mark@griffenapps.io",
           subject: `${
             IS_PRODUCTION ? "" : "[TEST] "
           }Your Bravemumma order is now complete`,
@@ -195,9 +196,7 @@ app.post("/paypal", async (req, res) => {
           }
           console.log(
             `Email sent to ${
-              IS_PRODUCTION
-                ? payer.email_address
-                : "griffensoftwareoz@gmail.com"
+              IS_PRODUCTION ? payer.email_address : "mark@griffenapps.io"
             }`
           );
         });
@@ -211,7 +210,7 @@ app.post("/paypal", async (req, res) => {
 
     res.status(200).send("EVENT_RECEIVED");
   } catch (e) {
-    console.log("error: " + JSON.stringify(e));
+    console.log("error: " + e.toString());
     res.status(500).send({ success: false, error: e.toString() });
   }
 });
