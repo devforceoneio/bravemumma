@@ -1,6 +1,6 @@
 /*!
  * Start Bootstrap - Grayscale v5.0.8 (https://startbootstrap.com/template-overviews/grayscale)
- * Copyright 2013-2022 Start Bootstrap
+ * Copyright 2013-2023 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-grayscale/blob/master/LICENSE)
  */
 
@@ -652,10 +652,79 @@
   color: #ff5c5c;
 }
 
+.player {
+  z-index: 999;
+  background: #ff5c5c;
+  color: #000;
+  min-height: 80px;
+  max-height: 80px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+.player .left {
+  width: 80px;
+  background-image: url(https://deow9bq0xqvbj.cloudfront.net/image-logo/6173543/The_LOW-DOWN_1400x1400-55_eyeczj.png);
+  background-size: cover;
+}
+.player .right {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.player .right .top {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding-left: 10px;
+}
+.player .right .top .song {
+  font-size: 1em;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  color: #ffffff;
+}
+.player .right .bottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.player .right .bottom audio {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  height: 32px;
+}
+.player .right .bottom audio::-webkit-media-controls-panel {
+  background-color: #ff5c5c;
+}
+
 body {
   font-family: "Nunito";
   letter-spacing: 0.0625em;
   background-color: #fef2ee;
+  padding-bottom: 80px;
 }
 
 a {

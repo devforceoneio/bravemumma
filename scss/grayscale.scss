@@ -13,11 +13,13 @@
 @import "contact.scss";
 @import "privacy.scss";
 @import "footer.scss";
+@import "audioplayer.scss";
 
 body {
   font-family: "Nunito";
   letter-spacing: 0.0625em;
   background-color: $light-pink;
+  padding-bottom: 80px;
 }
 
 a {

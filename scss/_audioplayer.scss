@@ -1,0 +1,42 @@
+.player {
+  z-index: 999;
+  background: #ff5c5c;
+  color: #000;
+  min-height: 80px;
+  max-height: 80px;
+  display: flex;
+  flex-direction: row;
+  .left {
+    width: 80px;
+    background-image: url(https://deow9bq0xqvbj.cloudfront.net/image-logo/6173543/The_LOW-DOWN_1400x1400-55_eyeczj.png);
+    background-size: cover;
+  }
+  .right {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    .top {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 10px;
+      .song {
+        font-size: 1em;
+        font-weight: 600;
+        text-overflow: ellipsis;
+        color: #ffffff;
+      }
+    }
+    .bottom {
+      display: flex;
+      audio {
+        flex-grow: 1;
+        height: 32px;
+      }
+      audio::-webkit-media-controls-panel {
+        background-color: #ff5c5c;
+      }
+    }
+  }
+}
