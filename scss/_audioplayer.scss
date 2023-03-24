@@ -1,6 +1,6 @@
 .player {
   z-index: 999;
-  background: #ff5c5c;
+  background: #f6988e;
   color: #000;
   min-height: 80px;
   max-height: 80px;
@@ -8,7 +8,8 @@
   flex-direction: row;
   .left {
     width: 80px;
-    background-image: url(https://deow9bq0xqvbj.cloudfront.net/image-logo/6173543/The_LOW-DOWN_1400x1400-55_eyeczj.png);
+    margin: 5px;
+    background-image: url(https://deow9bq0xqvbj.cloudfront.net/image-logo/6173543/The_LOW-DOWN_1400x1400-55_eyeczj_300x300.png);
     background-size: cover;
   }
   .right {
@@ -33,9 +34,12 @@
       audio {
         flex-grow: 1;
         height: 32px;
-      }
-      audio::-webkit-media-controls-panel {
-        background-color: #ff5c5c;
+        &::-webkit-media-controls-panel {
+          background-color: #f6988e;
+        }
+        &::-webkit-media-controls-timeline {
+          color: #ffffff;
+        }
       }
     }
   }
