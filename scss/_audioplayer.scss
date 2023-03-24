@@ -7,7 +7,8 @@
   display: flex;
   flex-direction: row;
   .left {
-    width: 80px;
+    min-width: 70px;
+    width: 70px;
     margin: 5px;
     background-image: url(https://deow9bq0xqvbj.cloudfront.net/image-logo/6173543/The_LOW-DOWN_1400x1400-55_eyeczj_300x300.png);
     background-size: cover;
@@ -25,8 +26,10 @@
       .song {
         font-size: 1em;
         font-weight: 600;
-        text-overflow: ellipsis;
         color: #ffffff;
+        @media (max-width: 991px) {
+          font-size: 0.8em;
+        }
       }
     }
     .bottom {
@@ -43,4 +46,13 @@
       }
     }
   }
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
