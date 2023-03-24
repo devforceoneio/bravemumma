@@ -140,7 +140,7 @@
 }
 @media (min-width: 992px) {
   .masthead {
-    padding: 112px 0 0 0;
+    padding: 112px 0 80px 0;
   }
   .masthead h1 {
     font-size: 6.5rem;
@@ -150,6 +150,11 @@
   .masthead h2 {
     max-width: 30rem;
     font-size: 1.25rem;
+  }
+}
+@media (max-width: 768px) {
+  .masthead {
+    padding-bottom: 120px;
   }
 }
 
