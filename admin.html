@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Firebase Admin Module</title>
+    <meta name="author" content="Renaud Tarnec - www.rtaconsulting.eu" />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+    <!-- <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script> -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <!-- <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script> -->
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-functions.js"></script>
+
+    <style media="screen">
+      body {
+        background: #ffffff;
+        color: rgba(0, 0, 0, 0.87);
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        padding: 42px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="rootContainer" class="d-none">
+      <div class="container-fluid w-75 mt-1" id="loginContainer">
+        <img
+          src="img/bravemumma_logo_with_heart.png"
+          class="img-fluid"
+          alt="Responsive image"
+        />
+        <div class="container-fluid text-center">
+          <h4>Admin Login</h4>
+        </div>
+        <div class="container-fluid w-75 d-none" id="statusContainer">
+          <div class="alert alert-danger" role="alert">
+            <p class="mb-0" id="alertContent"></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="adminEmail">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="loginEmail"
+            placeholder="Your Email"
+          />
+        </div>
+        <div class="form-group">
+          <label for="adminPassword">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="loginPassword"
+            placeholder="Password"
+          />
+        </div>
+
+        <button id="login" class="btn btn-primary float-right">Login</button>
+      </div>
+
+      <div
+        class="container-fluid w-75 mt-1 d-none"
+        style="height: 50px"
+        id="logoutContainer"
+      >
+        <button id="logout" class="btn btn-primary float-right">Logout</button>
+      </div>
+
+      <div id="showUsers" class="container-fluid w-75 mt-1 d-none">
+        <h4 class="mb-3">Users</h4>
+
+        <table id="usersTable" class="table">
+          <thead>
+            <tr>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Email</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div id="createuserform" class="container-fluid w-75 mt-5 d-none">
+        <h4 class="mb-3">Create a New User</h4>
+
+        <form class="w-75">
+          <div class="form-group row">
+            <label for="firstName" class="col-sm-3 col-form-label"
+              >First Name</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="firstName"
+                autocomplete="off"
+                placeholder="First Name"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lastName" class="col-sm-3 col-form-label"
+              >Last Name</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="lastName"
+                autocomplete="off"
+                placeholder="Last Name"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="email" class="col-sm-3 col-form-label">Email</label>
+            <div class="col-sm-9">
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                autocomplete="off"
+                placeholder="Email"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="password" class="col-sm-3 col-form-label"
+              >Password</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                autocomplete="off"
+                placeholder="Password"
+              />
+            </div>
+          </div>
+          <fieldset class="form-group">
+            <div class="row">
+              <legend class="col-form-label col-sm-3 pt-0">Role</legend>
+              <div class="col-sm-9">
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="roleOptions"
+                    id="inlineRadio1"
+                    value="member"
+                  />
+                  <label class="form-check-label" for="inlineRadio1"
+                    >Member</label
+                  >
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <button type="button" id="createUser" class="btn btn-primary">
+                Create User
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="container-fluid w-75 d-none" id="statusUserCreation">
+        <div
+          id="alertStatusUserCreation"
+          class="alert alert-success"
+          role="alert"
+        >
+          <p class="mb-0" id="alertStatusUserContent"></p>
+        </div>
+      </div>
+
+      <script>
+        const firebaseApp = firebase.initializeApp({
+          apiKey: "AIzaSyDw3K6WKb_DTjPl5RhLvAUE39UWLhKAt5E",
+          authDomain: "bravemumma-29fc5.firebaseapp.com",
+          projectId: "bravemumma-29fc5",
+          storageBucket: "bravemumma-29fc5.appspot.com",
+          messagingSenderId: "169257064614",
+          appId: "1:169257064614:web:59b645579fe06c5fd17c67",
+          measurementId: "G-1356YTDV9V",
+        });
+
+        var auth = firebaseApp.auth();
+        var firestore = firebaseApp.firestore();
+        var functions = firebaseApp.functions();
+
+        functions.useFunctionsEmulator("http://localhost:5001");
+        firestore.useEmulator("http://localhost:8080");
+        auth.useEmulator("http://localhost:9099");
+
+        const getUserRequests = (status = "pending") => {
+          const data = firestore
+            .collection("userSignupRequests")
+            .where("status", "==", status)
+            .get()
+            .then((querySnapshot) => {
+              $("#usersTable > tbody").empty();
+              querySnapshot.forEach((doc) => {
+                const document = doc.data();
+                var tr = $("<tr />");
+                tr.append(
+                  $(
+                    "<td class='align-middle'>" +
+                      document.userDetails.firstName +
+                      "</td>",
+                  ),
+                );
+                tr.append(
+                  $(
+                    "<td class='align-middle'>" +
+                      document.userDetails.lastName +
+                      "</td>",
+                  ),
+                );
+                tr.append(
+                  $(
+                    "<td class='align-middle'>" +
+                      document.userDetails.email +
+                      "</td>",
+                  ),
+                );
+                tr.append(
+                  "<td><button id='approveRequest-" +
+                    document.id +
+                    "' type='button' class='btn btn-success mr-1'>Approve</button/><button id='denyRequest-" +
+                    document.id +
+                    "' type='button' class='btn btn-danger'>Deny</button></td>",
+                );
+                $("#usersTable > tbody:last-child").append(tr);
+                $("#approveRequest-" + document.id).on("click", () =>
+                  approveRequest(document.id),
+                );
+                $("#denyRequest-" + document.id).on("click", () =>
+                  denyRequest(document.id),
+                );
+              });
+            })
+            .catch((err) => {
+              console.log("err", err);
+            });
+        };
+
+        const approveRequest = async (id) => {
+          await firestore.collection("userSignupRequests").doc(id).set(
+            {
+              status: "approved",
+              approvedOn: firebase.firestore.FieldValue.serverTimestamp(),
+            },
+            { merge: true },
+          );
+          getUserRequests();
+        };
+
+        const denyRequest = async (id) => {
+          await firestore.collection("userSignupRequests").doc(id).set(
+            {
+              status: "denied",
+              deniedOn: firebase.firestore.FieldValue.serverTimestamp(),
+            },
+            { merge: true },
+          );
+          getUserRequests();
+        };
+
+        const createUser = () => {
+          $("#statusUserCreation").addClass("d-none");
+
+          var userSignup = functions.httpsCallable("userSignup");
+
+          var user = {
+            firstName: $("#firstName").val(),
+            lastName: $("#lastName").val(),
+            password: $("#password").val(),
+            email: $("#email").val(),
+            role: $("input[name=roleOptions]:checked").val(),
+          };
+
+          userSignup(user)
+            .then(function (resp) {
+              displayAlertStatusUser(resp.data.result, "alert-success");
+            })
+            .catch(function (error) {
+              var code = error.code;
+              var message = error.message;
+              displayAlertStatusUser(message, "alert-danger");
+            });
+        };
+
+        const login = () => {
+          auth
+            .signInWithEmailAndPassword(
+              $("#loginEmail").val(),
+              $("#loginPassword").val(),
+            )
+            .then(function () {
+              $("#loginEmail").val("");
+              $("#loginPassword").val("");
+            })
+            .catch(function (error) {
+              $("#alertContent").text(error.message);
+              $("#statusContainer").removeClass("d-none");
+            });
+        };
+
+        const logout = () => {
+          auth.signOut();
+          $("#statusContainer").addClass("d-none");
+        };
+
+        const getCurrentNonAdminRole = (claims) => {
+          if (claims.role === "admin") {
+            return "Admin";
+          } else if (claims.role === "member") {
+            return "Member";
+          } else {
+            return undefined;
+          }
+        };
+
+        const displayAlertStatusUser = (msg, cls) => {
+          $("#alertStatusUserContent").text(msg);
+          $("#alertStatusUserCreation").removeClass("alert-success");
+          $("#alertStatusUserCreation").removeClass("alert-danger");
+          $("#alertStatusUserCreation").addClass(cls);
+          $("#statusUserCreation").removeClass("d-none");
+        };
+
+        const displayLogin = () => {
+          $("#loginContainer").removeClass("d-none");
+          $("#logoutContainer").addClass("d-none");
+        };
+
+        const displayLogout = () => {
+          $("#loginContainer").addClass("d-none");
+          $("#logoutContainer").removeClass("d-none");
+        };
+
+        $(document).ready(function () {
+          auth.onAuthStateChanged(function (user) {
+            $("#rootContainer").removeClass("d-none");
+            $("#statusUserCreation").addClass("d-none");
+            if (user) {
+              user
+                .getIdTokenResult()
+                .then((idTokenResult) => {
+                  if (idTokenResult.claims?.role === "admin") {
+                    var currentRole = getCurrentNonAdminRole(
+                      idTokenResult.claims,
+                    );
+
+                    if (currentRole === "Member") {
+                      $("#alertContent").text("Login is restricted to Admins");
+                      $("#statusContainer").removeClass("d-none");
+                    }
+                  } else {
+                    $("#showUsers").removeClass("d-none");
+                    getUserRequests("pending");
+                  }
+                  displayLogout();
+                })
+                .catch(function (error) {
+                  var errorCode = error.code;
+                  var errorMessage = error.message;
+                  if (errorCode === "auth/invalid-custom-token") {
+                    $("#alertContent").text(
+                      "The token you provided is not valid.",
+                    );
+                  } else {
+                    $("#alertContent").text(error);
+                  }
+                  $("#statusContainer").removeClass("d-none");
+                  displayLogout();
+                });
+            } else {
+              displayLogin();
+            }
+          });
+
+          $("#login").on("click", () => {
+            login();
+          });
+
+          $("#logout").on("click", () => {
+            logout();
+          });
+
+          $("#createUser").on("click", () => {
+            createUser();
+          });
+
+          $("#tokenRefresh").on("click", () => {
+            tokenRefresh();
+          });
+        });
+      </script>
+    </div>
+  </body>
+</html>
